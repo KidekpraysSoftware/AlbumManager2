@@ -1,0 +1,15 @@
+# === YAML Album Metadata Template ===
+# Файл: album/<UUID>.yaml
+
+id: <uuid>
+name: "<string>"                  # Название альбома
+isActive: <boolean>               # Флаг активности альбома
+type: <enum>                      # enum[DRAFT, RELEASE] — режим альбома: черновик или релиз
+path: "<string>"                  # Виртуальное расположение альбома (например: /сборники/космические)
+status: <enum>                    # enum[CREATED, INPROGRESS, COMPLETED, FROZEN, CANCELED, RELEASED]
+resources:
+  - <uuid>
+createdAt: <timestamp>           # миллисекунды с начала эпохи (UTC)
+description: "<string>"
+wallpaper: <uuid>                 # UUID обложки альбома (ресурс-изображение)
+view: <uuid>                      # UUID превью-трека (ресурс-аудио)

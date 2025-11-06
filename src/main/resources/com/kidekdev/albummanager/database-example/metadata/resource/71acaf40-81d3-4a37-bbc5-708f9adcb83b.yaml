@@ -1,0 +1,23 @@
+# === Example: Video ===
+id: "71acaf40-81d3-4a37-bbc5-708f9adcb83b"
+isActive: true
+hash: "cc718dde84928cf5b20110c0a084a5779ee2e697ec47371b21ac778c32f206a6"
+resourceType: VIDEO
+extension: MP4
+description: "Видеопревью проекта"
+sizeBytes: 54123908
+importedAt: 1764627245421
+created: 1762114330001
+modified: 1762114330001
+tags:
+  - "teaser"
+metadata:
+  "title": "Project Preview"
+  "author": "Dmitry K."
+  "duration seconds": "58.77"
+  "frame width": "1920"
+  "frame height": "1080"
+  "frame rate": "30"
+  "codec": "H.264"
+  "audio channels": "2"
+  "audio sample-rate": "44100"

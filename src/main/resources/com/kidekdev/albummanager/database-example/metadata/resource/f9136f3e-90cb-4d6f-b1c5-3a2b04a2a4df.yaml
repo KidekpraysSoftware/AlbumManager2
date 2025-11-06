@@ -1,0 +1,21 @@
+# === Example: Track (audio) ===
+id: "f9136f3e-90cb-4d6f-b1c5-3a2b04a2a4df"
+isActive: true
+hash: "eba030ecb203534dbe2b97dc4e6d92775f9f1daceb98423f76031406a417b4c3"
+resourceType: TRACK
+extension: WAV
+description: "Демо-трек Rainy Evening"
+sizeBytes: 12839402
+importedAt: 1764627245421
+created: 1761948845421
+modified: 1761988051002
+tags:
+  - "ambient"
+  - "demo"
+metadata:
+  "title": "Rainy Evening"
+  "author": "Dmitry K."
+  "duration seconds": "182.34"
+  "sample rate": "48000"
+  "bit depth": "24"
+  "channels": "2"

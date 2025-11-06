@@ -1,0 +1,12 @@
+# === YAML Project Metadata Template ===
+# Файл: project/<UUID>.yaml
+
+id: <uuid>
+isActive: <boolean>
+name: "<string>"
+status: <enum> # enum[CREATED, INPROGRESS, COMPLETED, FROZEN, CANCELED, RELEASED]
+resources:
+  - <uuid>
+createdAt: <timestamp> # миллисекунды с начала эпохи (UTC)
+description: "<string>"
+view: <uuid>                # UUID ресурса, используемого как превью/основной трек

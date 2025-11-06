@@ -1,0 +1,14 @@
+id: "bb75ba42-0257-422f-a90e-cd1066fdd9f2"
+isActive: true
+name: "Space Music"
+type: DRAFT
+path: /сборники/космические
+status: INPROGRESS
+resources:
+  - 08722531-1be5-40d1-90a3-722229b4aa4a
+  - 729e2251-34d6-4662-a1b9-b52baf7a491b
+  - cff92b59-d23c-4cb9-bb73-04635a1ef03a
+createdAt: 1762204032532
+description: "Космическая музыка"
+wallpaper: cff92b59-d23c-4cb9-bb73-04635a1ef03a
+view: 729e2251-34d6-4662-a1b9-b52baf7a491b

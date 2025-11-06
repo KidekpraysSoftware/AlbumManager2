@@ -1,0 +1,24 @@
+id: "ae2c9cd6-6cc5-4dd6-91b8-2a3f3c4f1c8f"
+isActive: true
+name: "Короткие треки о космосе"
+description: "Плейлист коротких космических треков"
+included:
+  tags:
+    - "Космос"
+  types:
+    - TRACK
+  nameSubstrings:
+    - "intro"
+    - "space"
+excluded:
+  tags: []
+  types: []
+  nameSubstrings: []
+
+durationRange:
+  min: 0.0
+  max: 120.0
+
+sort:
+  by: BY_IMPORTED_AT
+  order: DESC

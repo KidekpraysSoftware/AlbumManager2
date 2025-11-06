@@ -1,0 +1,17 @@
+# === YAML Resource Metadata Template ===
+# Файл: resource/<UUID>.yaml
+
+id: <uuid>
+hash: <sha256>             # строка из 64 шестнадцатеричных символов (дублирует имя файла)
+isActive: <boolean>        # Флаг активности ресурса
+resourceType: <enum>      # enum[TRACK, IMAGE, MIDI, VIDEO]
+extension: <enum>          # enum[WAV, MP3, FLAC, AIFF, OGG, PNG, JPEG, JPG, MID, MIDI, MP4, MOV, MKV] (ResourceExtension)
+description: "<string>"    # Краткое описание ресурса
+sizeBytes: <int>
+importedAt: <timestamp>   # миллисекунды с начала эпохи (UTC) — момент добавления в систему
+created: <timestamp>      # миллисекунды с начала эпохи (UTC) — оригинальное время создания файла
+modified: <timestamp>     # миллисекунды с начала эпохи (UTC) — оригинальное время изменения файла
+tags:
+  - "<string>"
+metadata:
+  "<meta-key>": "<meta-value>"

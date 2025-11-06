@@ -1,0 +1,25 @@
+# === Example Journal ===
+# Пример файла: 9fd4b8c8-9a1b-43f5-9b37-9a1c5f782b52.yaml (UUID журнала)
+# Этот файл является журналом объекта с UUID = 1ac61d35-5c5a-42f9-a81e-65be309ac0b0
+
+id: "9fd4b8c8-9a1b-43f5-9b37-9a1c5f782b52"
+isActive: true
+linkedBy: "1ac61d35-5c5a-42f9-a81e-65be309ac0b0"
+
+1762201815123:
+  type: USER
+  text: "Первое тестовое сообщение журнала"
+  attachments:
+    - "b73e6a51-0e7a-4dc0-b6a2-441f64e9d2a1"
+    - "a5f9323c-7fbb-43b0-8b1e-27305a2e62a8"
+
+1762201875123:
+  type: SYSTEM
+  text: "Альбом переименован"
+  attachments: []
+
+1762201968907:
+  type: USER
+  text: "Переименовал альбом из-за ошибки"
+  attachments: []
+  commentOn: 1762201875123

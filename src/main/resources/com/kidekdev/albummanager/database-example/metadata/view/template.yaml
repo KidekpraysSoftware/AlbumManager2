@@ -1,0 +1,35 @@
+# === YAML View Template ===
+# Файл: view/<UUID>.yaml
+
+id: <uuid>
+isActive: <boolean>
+name: "<string>"             # Название View
+description: "<string>"      # Краткое описание выборки
+
+included:
+  tags:
+    - "<string>"
+  types:
+    - "<enum>"               # enum[TRACK, IMAGE, MIDI, VIDEO]
+  extensions:
+    - "<enum>"               # enum[WAV, MP3, FLAC, AIFF, OGG, PNG, JPEG, JPG, MID, MIDI, MP4, MOV, MKV]
+  nameSubstrings:
+    - "<substring>"          # список подстрок, которые должны встречаться в имени ресурса
+
+excluded:
+  tags:
+    - "<string>"
+  types:
+    - "<enum>"
+  extensions:
+    - "<enum>"               # enum[WAV, MP3, FLAC, AIFF, OGG, PNG, JPEG, JPG, MID, MIDI, MP4, MOV, MKV]
+  nameSubstrings:
+    - "<substring>"
+
+durationRange:
+  min: <float>               # минимальная длительность в секундах
+  max: <float>               # максимальная длительность в секундах
+
+sort:
+  by: <enum>                 # enum[BY_NAME, BY_CREATED_AT, BY_IMPORTED_AT]
+  order: <enum>              # enum[ASC, DESC]

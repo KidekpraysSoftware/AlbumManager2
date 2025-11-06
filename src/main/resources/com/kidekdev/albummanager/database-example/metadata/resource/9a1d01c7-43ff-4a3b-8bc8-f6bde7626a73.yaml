@@ -1,0 +1,17 @@
+# === Example: Image ===
+id: "9a1d01c7-43ff-4a3b-8bc8-f6bde7626a73"
+isActive: true
+hash: "61fe4fe9af6c6402f7db5fc318003ffda1e1b0aaaef10bbc59e6d0ae13cf354d"
+resourceType: IMAGE
+extension: PNG
+description: "Обложка проекта"
+sizeBytes: 3028471
+importedAt: 1764627245421
+created: 1762001110511
+modified: 1762001169233
+tags:
+  - "cover"
+metadata:
+  "width": "1920"
+  "height": "1080"
+  "color depth": "24"

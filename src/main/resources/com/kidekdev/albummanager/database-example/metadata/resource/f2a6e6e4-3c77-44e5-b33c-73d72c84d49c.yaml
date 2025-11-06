@@ -1,0 +1,21 @@
+# === Example: Midi ===
+id: "f2a6e6e4-3c77-44e5-b33c-73d72c84d49c"
+isActive: true
+hash: "f5374a7b42ffb1ee1ba11b27da070659977ffcf57ae2b05d7654772dc1ce24ff"
+resourceType: MIDI
+extension: MID
+description: "MIDI-эскиз пиано партии"
+sizeBytes: 27412
+importedAt: 1764627245421
+created: 1761674472040
+modified: 1761674472040
+tags:
+  - "piano"
+metadata:
+  "title": "Sketch_01"
+  "author": "Dmitry K."
+  "tracks": "4"
+  "duration seconds": "96.5"
+  "tempo bpm": "120"
+  "key signature": "C Major"
+  "time signature": "4/4"
