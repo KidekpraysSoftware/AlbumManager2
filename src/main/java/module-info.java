@@ -8,8 +8,7 @@ module com.kidekdev.albummanager {
 
     opens com.kidekdev.albummanager to javafx.fxml;
     exports com.kidekdev.albummanager;
-    exports com.kidekdev.albummanager.ui;
-    opens com.kidekdev.albummanager.ui to javafx.fxml;
+
     exports com.kidekdev.albummanager.ui.controller;
     opens com.kidekdev.albummanager.ui.controller to javafx.fxml;
 }

@@ -4,47 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="205ab624-d3a1-4797-abc5-8b6342d888e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/HelloApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/HelloController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/loader/DatabaseLoadResult.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/loader/DatabaseLoader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/model/album/AlbumDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/model/album/AlbumType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/model/common/ResourceType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/model/common/WorkflowStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/model/folder/FolderDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/model/folder/ImportRuleType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/model/journal/JournalDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/model/journal/JournalMessageDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/model/journal/JournalMessageType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/model/project/ProjectDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/model/resource/ResourceDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/model/resource/ResourceExtension.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/model/tag/GlobalTagGroupsDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/model/view/DurationRangeDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/model/view/SortBy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/model/view/SortOrder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/model/view/ViewDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/model/view/ViewFilterDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/model/view/ViewSortDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/service/DatabaseService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/service/FileDatabaseService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/service/InMemoryDatabaseService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/service/OperationResult.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/service/SaveResult.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/kidekdev/albummanager/hello-view.fxml" afterDir="false" />
+    <list default="true" id="205ab624-d3a1-4797-abc5-8b6342d888e7" name="Changes" comment="Init">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,20 +39,21 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Kidek/Documents/Idea projects/AlbumManager/src/main/java/com/kidekdev/albummanager/database",
+    "last_opened_file_path": "C:/Users/Kidek/Documents/Idea projects/AlbumManager",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Kidek\Documents\Idea projects\AlbumManager" />
       <recent name="C:\Users\Kidek\Documents\Idea projects\AlbumManager\src\main\java\com\kidekdev\albummanager\database" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -102,7 +66,7 @@
       <module name="AlbumManager" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.kidekdev.albummanager.*" />
+          <option name="PATTERN" value="com.kidekdev.albummanager.ui.controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -132,8 +96,17 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1762430005231</updated>
-      <workItem from="1762430006250" duration="1246000" />
+      <workItem from="1762430006250" duration="1555000" />
     </task>
+    <task id="LOCAL-00001" summary="Init">
+      <option name="closed" value="true" />
+      <created>1762431419668</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1762431419668</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -149,5 +122,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Init" />
+    <option name="LAST_COMMIT_MESSAGE" value="Init" />
   </component>
 </project>
