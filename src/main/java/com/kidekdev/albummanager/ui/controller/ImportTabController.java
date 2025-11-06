@@ -4,20 +4,26 @@ import com.kidekdev.albummanager.database.loader.DatabaseLoader;
 import com.kidekdev.albummanager.database.service.DatabaseService;
 import com.kidekdev.albummanager.database.service.InMemoryDatabaseService;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.VBox;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class HelloController {
+public class ImportTabController {
     @FXML
-    private Label welcomeText;
+    private Button importButton;
 
     @FXML
-    protected void onHelloButtonClick() {
-        DatabaseLoader loader = new DatabaseLoader();
-        Path path = Paths.get("C:\\Users\\Kidek\\Desktop\\metadata");
-        DatabaseService db = new InMemoryDatabaseService(loader.loadDatabase(path));
-        welcomeText.setText(db.getAllTracks().get(0).getDescription());
-    }
+    private VBox importList;
+
+    @FXML
+    private Label importPathLabel;
+
+    @FXML
+    private TextArea yearsTextAria;
+
+
 }

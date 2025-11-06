@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kidekdev.albummanager.ui.controller.ApplicationController">
+   <children>
+      <TabPane prefHeight="1080.0" prefWidth="1920.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab disable="true" text="Импорт">
+            <content>
+                    <fx:include source="ImportTab.fxml" />
+            </content>
+          </Tab>
+          <Tab text="Треки">
+            <content>
+                <fx:include source="MainTab.fxml" />
+            </content>
+          </Tab>
+            <Tab disable="true" text="Статистика">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
