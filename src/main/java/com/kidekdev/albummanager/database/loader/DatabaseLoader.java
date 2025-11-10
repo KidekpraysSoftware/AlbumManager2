@@ -2,7 +2,9 @@ package com.kidekdev.albummanager.database.loader;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.kidekdev.albummanager.database.model.DataBase;
 import com.kidekdev.albummanager.database.model.album.AlbumDto;
+import com.kidekdev.albummanager.database.model.autoimport.ImportDto;
 import com.kidekdev.albummanager.database.model.folder.FolderDto;
 import com.kidekdev.albummanager.database.model.journal.JournalDto;
 import com.kidekdev.albummanager.database.model.project.ProjectDto;
@@ -28,6 +30,7 @@ public class DatabaseLoader {
     private static final Set<String> REQUIRED_FOLDERS = Set.of(
             "album",
             "folder",
+            "import",
             "journal",
             "project",
             "resource",
@@ -44,14 +47,24 @@ public class DatabaseLoader {
 
     public DatabaseLoadResult loadDatabase(Path rootPath) {
         Map<Path, UUID> pathIndex = new LinkedHashMap<>();
-        Map<UUID, Object> globalDatabase = new LinkedHashMap<>();
+        DataBase dataBase = new DataBase();
 
         GlobalTagGroupsDto globalTagGroups = GlobalTagGroupsDto.load(rootPath);
         scanForEntities(rootPath, pathIndex);
         ensureUniqueIdentifiers(pathIndex);
-        loadEntities(rootPath, pathIndex, globalDatabase);
+        loadEntities(rootPath, pathIndex, dataBase);
 
-        return new DatabaseLoadResult(Map.copyOf(pathIndex), Map.copyOf(globalDatabase), globalTagGroups);
+        DataBase immutableCopy = new DataBase(
+                dataBase.resources(),
+                dataBase.albums(),
+                dataBase.folders(),
+                dataBase.projects(),
+                dataBase.journals(),
+                dataBase.views(),
+                dataBase.imports()
+        );
+
+        return new DatabaseLoadResult(Map.copyOf(pathIndex), immutableCopy, globalTagGroups);
     }
 
     public DatabaseLoadResult createDatabase(Path rootPath) {
@@ -132,11 +145,11 @@ public class DatabaseLoader {
         }
     }
 
-    private void loadEntities(Path rootPath, Map<Path, UUID> pathIndex, Map<UUID, Object> globalDatabase) {
-        pathIndex.forEach((path, uuid) -> loadEntity(rootPath, globalDatabase, path, uuid));
+    private void loadEntities(Path rootPath, Map<Path, UUID> pathIndex, DataBase dataBase) {
+        pathIndex.forEach((path, uuid) -> loadEntity(rootPath, dataBase, path, uuid));
     }
 
-    private void loadEntity(Path rootPath, Map<UUID, Object> globalDatabase, Path relativePath, UUID uuid) {
+    private void loadEntity(Path rootPath, DataBase dataBase, Path relativePath, UUID uuid) {
         if (relativePath.getNameCount() == 0) {
             throw new IllegalStateException("Invalid path without parent directory: " + relativePath);
         }
@@ -145,57 +158,57 @@ public class DatabaseLoader {
         Path absolutePath = rootPath.resolve(relativePath);
 
         switch (folderName) {
-            case "resource" -> loadResource(globalDatabase, absolutePath, uuid);
-            case "album" -> loadAlbum(globalDatabase, absolutePath, uuid);
-            case "folder" -> loadFolder(globalDatabase, absolutePath, uuid);
-            case "journal" -> loadJournal(globalDatabase, absolutePath, uuid);
-            case "project" -> loadProject(globalDatabase, absolutePath, uuid);
-            case "tag" -> loadTagGroups(globalDatabase, absolutePath, uuid);
-            case "view" -> loadView(globalDatabase, absolutePath, uuid);
+            case "resource" -> loadResource(dataBase, absolutePath, uuid);
+            case "album" -> loadAlbum(dataBase, absolutePath, uuid);
+            case "folder" -> loadFolder(dataBase, absolutePath, uuid);
+            case "import" -> loadImport(dataBase, absolutePath, uuid);
+            case "journal" -> loadJournal(dataBase, absolutePath, uuid);
+            case "project" -> loadProject(dataBase, absolutePath, uuid);
+            case "view" -> loadView(dataBase, absolutePath, uuid);
             default -> throw new IllegalStateException(
                     "Unsupported entity folder '%s' for file %s".formatted(folderName, relativePath));
         }
     }
 
-    private void loadResource(Map<UUID, Object> globalDatabase, Path file, UUID uuid) {
+    private void loadResource(DataBase dataBase, Path file, UUID uuid) {
         ResourceDto resource = readYaml(file, ResourceDto.class);
-        globalDatabase.put(uuid, resource);
+        dataBase.resources().put(uuid, resource);
         log.debug("Loaded resource {} from {}", uuid, file);
     }
 
-    private void loadAlbum(Map<UUID, Object> globalDatabase, Path file, UUID uuid) {
+    private void loadAlbum(DataBase dataBase, Path file, UUID uuid) {
         AlbumDto album = readYaml(file, AlbumDto.class);
-        globalDatabase.put(uuid, album);
+        dataBase.albums().put(uuid, album);
         log.debug("Loaded album {} from {}", uuid, file);
     }
 
-    private void loadFolder(Map<UUID, Object> globalDatabase, Path file, UUID uuid) {
+    private void loadFolder(DataBase dataBase, Path file, UUID uuid) {
         FolderDto folder = readYaml(file, FolderDto.class);
-        globalDatabase.put(uuid, folder);
+        dataBase.folders().put(uuid, folder);
         log.debug("Loaded folder {} from {}", uuid, file);
     }
 
-    private void loadJournal(Map<UUID, Object> globalDatabase, Path file, UUID uuid) {
+    private void loadImport(DataBase dataBase, Path file, UUID uuid) {
+        ImportDto importRule = readYaml(file, ImportDto.class);
+        dataBase.imports().put(uuid, importRule);
+        log.debug("Loaded import {} from {}", uuid, file);
+    }
+
+    private void loadJournal(DataBase dataBase, Path file, UUID uuid) {
         JournalDto journal = readYaml(file, JournalDto.class);
-        globalDatabase.put(uuid, journal);
+        dataBase.journals().put(uuid, journal);
         log.debug("Loaded journal {} from {}", uuid, file);
     }
 
-    private void loadProject(Map<UUID, Object> globalDatabase, Path file, UUID uuid) {
+    private void loadProject(DataBase dataBase, Path file, UUID uuid) {
         ProjectDto project = readYaml(file, ProjectDto.class);
-        globalDatabase.put(uuid, project);
+        dataBase.projects().put(uuid, project);
         log.debug("Loaded project {} from {}", uuid, file);
     }
 
-    private void loadTagGroups(Map<UUID, Object> globalDatabase, Path file, UUID uuid) {
-        GlobalTagGroupsDto tags = readYaml(file, GlobalTagGroupsDto.class);
-        globalDatabase.put(uuid, tags);
-        log.debug("Loaded tag groups {} from {}", uuid, file);
-    }
-
-    private void loadView(Map<UUID, Object> globalDatabase, Path file, UUID uuid) {
+    private void loadView(DataBase dataBase, Path file, UUID uuid) {
         ViewDto view = readYaml(file, ViewDto.class);
-        globalDatabase.put(uuid, view);
+        dataBase.views().put(uuid, view);
         log.debug("Loaded view {} from {}", uuid, file);
     }
 

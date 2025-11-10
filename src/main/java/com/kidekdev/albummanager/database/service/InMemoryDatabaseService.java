@@ -1,7 +1,9 @@
 package com.kidekdev.albummanager.database.service;
 
 import com.kidekdev.albummanager.database.loader.DatabaseLoadResult;
+import com.kidekdev.albummanager.database.model.DataBase;
 import com.kidekdev.albummanager.database.model.album.AlbumDto;
+import com.kidekdev.albummanager.database.model.autoimport.ImportDto;
 import com.kidekdev.albummanager.database.model.folder.FolderDto;
 import com.kidekdev.albummanager.database.model.journal.JournalDto;
 import com.kidekdev.albummanager.database.model.journal.JournalMessageDto;
@@ -18,19 +20,18 @@ import java.util.function.Function;
  */
 public class InMemoryDatabaseService implements DatabaseService {
 
-    private final Map<UUID, Object> database;
+    private final DataBase database;
     private final Map<String, String> groupByTag;
 
     public InMemoryDatabaseService(DatabaseLoadResult loadResult) {
-        this(Objects.requireNonNull(loadResult, "loadResult").globalDatabase(), loadResult.globalTagGroups());
+        this(Objects.requireNonNull(loadResult, "loadResult").dataBase(), loadResult.globalTagGroups());
     }
 
-    public InMemoryDatabaseService(Map<UUID, Object> initialState, GlobalTagGroupsDto tagGroups) {
-        this.database = new LinkedHashMap<>();
+    public InMemoryDatabaseService(DataBase initialState, GlobalTagGroupsDto tagGroups) {
+        this.database = new DataBase();
         if (initialState != null) {
-            this.database.putAll(initialState);
+            this.database.merge(initialState);
         }
-
         this.groupByTag = new LinkedHashMap<>();
         if (tagGroups != null && tagGroups.getTagGroups() != null) {
             this.groupByTag.putAll(tagGroups.getTagGroups());
@@ -39,32 +40,37 @@ public class InMemoryDatabaseService implements DatabaseService {
 
     @Override
     public Optional<?> getById(UUID id) {
-        return Optional.ofNullable(database.get(id));
+        return database.findEntity(id);
     }
 
     @Override
     public List<ResourceDto> getAllTracks() {
-        return getAllOfType(ResourceDto.class);
+        return List.copyOf(database.resources().values());
     }
 
     @Override
     public List<ProjectDto> getAllProjects() {
-        return getAllOfType(ProjectDto.class);
+        return List.copyOf(database.projects().values());
     }
 
     @Override
     public List<AlbumDto> getAllAlbums() {
-        return getAllOfType(AlbumDto.class);
+        return List.copyOf(database.albums().values());
     }
 
     @Override
     public List<FolderDto> getAllFolders() {
-        return getAllOfType(FolderDto.class);
+        return List.copyOf(database.folders().values());
+    }
+
+    @Override
+    public List<ImportDto> getAllImports() {
+        return List.copyOf(database.imports().values());
     }
 
     @Override
     public List<ViewDto> getAllViews() {
-        return getAllOfType(ViewDto.class);
+        return List.copyOf(database.views().values());
     }
 
     @Override
@@ -101,32 +107,37 @@ public class InMemoryDatabaseService implements DatabaseService {
 
     @Override
     public Optional<ResourceDto> getTrackById(UUID id) {
-        return getByIdAndType(id, ResourceDto.class);
+        return getById(database.resources(), id);
     }
 
     @Override
     public Optional<ProjectDto> getProjectById(UUID id) {
-        return getByIdAndType(id, ProjectDto.class);
+        return getById(database.projects(), id);
     }
 
     @Override
     public Optional<AlbumDto> getAlbumById(UUID id) {
-        return getByIdAndType(id, AlbumDto.class);
+        return getById(database.albums(), id);
     }
 
     @Override
     public Optional<FolderDto> getFolderById(UUID id) {
-        return getByIdAndType(id, FolderDto.class);
+        return getById(database.folders(), id);
+    }
+
+    @Override
+    public Optional<ImportDto> getImportById(UUID id) {
+        return getById(database.imports(), id);
     }
 
     @Override
     public Optional<ViewDto> getViewById(UUID id) {
-        return getByIdAndType(id, ViewDto.class);
+        return getById(database.views(), id);
     }
 
     @Override
     public Optional<JournalDto> getJournalById(UUID id) {
-        return getByIdAndType(id, JournalDto.class);
+        return getById(database.journals(), id);
     }
 
     @Override
@@ -212,51 +223,35 @@ public class InMemoryDatabaseService implements DatabaseService {
 
     @Override
     public SaveResult saveTrack(ResourceDto track) {
-        return saveEntity(track, ResourceDto::getId, ResourceDto.class, "track");
+        return saveEntity(track, ResourceDto::getId, database.resources(), "track");
     }
 
     @Override
     public SaveResult saveProject(ProjectDto project) {
-        return saveEntity(project, ProjectDto::getId, ProjectDto.class, "project");
+        return saveEntity(project, ProjectDto::getId, database.projects(), "project");
     }
 
     @Override
     public SaveResult saveAlbum(AlbumDto album) {
-        return saveEntity(album, AlbumDto::getId, AlbumDto.class, "album");
+        return saveEntity(album, AlbumDto::getId, database.albums(), "album");
     }
 
     @Override
     public SaveResult saveFolder(FolderDto folder) {
-        return saveEntity(folder, FolderDto::getId, FolderDto.class, "folder");
+        return saveEntity(folder, FolderDto::getId, database.folders(), "folder");
     }
 
     @Override
     public SaveResult saveView(ViewDto view) {
-        return saveEntity(view, ViewDto::getId, ViewDto.class, "view");
+        return saveEntity(view, ViewDto::getId, database.views(), "view");
     }
 
-    private <T> List<T> getAllOfType(Class<T> type) {
-        List<T> result = new ArrayList<>();
-        for (Object value : database.values()) {
-            if (type.isInstance(value)) {
-                result.add(type.cast(value));
-            }
-        }
-        return List.copyOf(result);
+    @Override
+    public SaveResult saveImport(ImportDto importRule) {
+        return saveEntity(importRule, ImportDto::getId, database.imports(), "import rule");
     }
 
-    private <T> Optional<T> getByIdAndType(UUID id, Class<T> type) {
-        if (id == null) {
-            return Optional.empty();
-        }
-        Object entity = database.get(id);
-        if (type.isInstance(entity)) {
-            return Optional.of(type.cast(entity));
-        }
-        return Optional.empty();
-    }
-
-    private <T> SaveResult saveEntity(T entity, Function<T, UUID> idExtractor, Class<T> type, String entityName) {
+    private <T> SaveResult saveEntity(T entity, Function<T, UUID> idExtractor, Map<UUID, T> storage, String entityName) {
         if (entity == null) {
             return new SaveResult(false, entityName + " must not be null");
         }
@@ -264,12 +259,22 @@ public class InMemoryDatabaseService implements DatabaseService {
         if (id == null) {
             return new SaveResult(false, entityName + " id must not be null");
         }
-        Object existing = database.get(id);
-        if (existing != null && !type.isInstance(existing)) {
-            return new SaveResult(false, "ID %s is already used by %s".formatted(id, existing.getClass().getSimpleName()));
+        Object existing = database.findEntity(id).orElse(null);
+        if (existing != null && !storage.containsKey(id)) {
+            return new SaveResult(false, "ID %s is already used by %s".formatted(
+                    id,
+                    existing.getClass().getSimpleName()
+            ));
         }
-        database.put(id, entity);
+        storage.put(id, entity);
         return new SaveResult(true, entityName + " saved");
+    }
+
+    private <T> Optional<T> getById(Map<UUID, T> storage, UUID id) {
+        if (id == null) {
+            return Optional.empty();
+        }
+        return Optional.ofNullable(storage.get(id));
     }
 
     private Map<String, JournalMessageDto> ensureMutableEntries(JournalDto journal) {

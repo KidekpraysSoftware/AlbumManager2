@@ -1,7 +1,7 @@
 package com.kidekdev.albummanager.database.service;
 
+import com.kidekdev.albummanager.database.model.common.ResourceType;
 import com.kidekdev.albummanager.database.model.folder.FolderDto;
-import com.kidekdev.albummanager.database.model.folder.ImportRuleType;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class FolderDatabaseServiceTest extends BaseDatabaseServiceTest {
 
-    private static final UUID FOLDER_ID = UUID.fromString("2ab741c4-e336-48fd-a1f3-d4055df1f264");
+    private static final UUID FOLDER_ID = UUID.fromString("4a2c773d-bd29-4329-ac75-871a6838784a");
 
     @Test
     void getAllFoldersReturnsSingleExample() {
@@ -19,7 +19,7 @@ class FolderDatabaseServiceTest extends BaseDatabaseServiceTest {
                 .hasSize(1)
                 .first()
                 .extracting(FolderDto::getPath)
-                .isEqualTo("D:/MusicProjects/LifeHolder");
+                .isEqualTo("C:\\Users\\Kidek\\Desktop\\Life Holder Project");
     }
 
     @Test
@@ -27,7 +27,9 @@ class FolderDatabaseServiceTest extends BaseDatabaseServiceTest {
         Optional<FolderDto> maybeFolder = databaseService.getFolderById(FOLDER_ID);
 
         assertThat(maybeFolder).isPresent();
-        assertThat(maybeFolder.orElseThrow().getImportRule()).isEqualTo(ImportRuleType.UPDATABLE_RESOURCE);
+        FolderDto folder = maybeFolder.orElseThrow();
+        assertThat(folder.getResourceType()).isEqualTo(ResourceType.TRACK);
+        assertThat(folder.getView()).isEqualTo(UUID.fromString("f9136f3e-90cb-4d6f-b1c5-3a2b04a2a4df"));
     }
 
     @Test
@@ -35,10 +37,11 @@ class FolderDatabaseServiceTest extends BaseDatabaseServiceTest {
         UUID newFolderId = UUID.randomUUID();
         FolderDto newFolder = new FolderDto(
                 newFolderId,
-                true,
                 "E:/NewFolder",
-                ImportRuleType.RESOURCE_FOLDER,
-                1700000000000L
+                1700000000000L,
+                true,
+                ResourceType.TRACK,
+                null
         );
 
         SaveResult result = databaseService.saveFolder(newFolder);

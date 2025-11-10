@@ -1,6 +1,7 @@
 package com.kidekdev.albummanager.database.loader;
 
 
+import com.kidekdev.albummanager.database.model.DataBase;
 import com.kidekdev.albummanager.database.model.tag.GlobalTagGroupsDto;
 
 import java.nio.file.Path;
@@ -12,7 +13,7 @@ import java.util.UUID;
  */
 public record DatabaseLoadResult(
         Map<Path, UUID> pathIndex,
-        Map<UUID, Object> globalDatabase,
+        DataBase dataBase,
         GlobalTagGroupsDto globalTagGroups
 ) {
 }
