@@ -1,6 +1,5 @@
 package com.kidekdev.albummanager.database.service;
 
-import com.kidekdev.albummanager.database.loader.DatabaseLoadResult;
 import com.kidekdev.albummanager.database.loader.DatabaseLoader;
 import com.kidekdev.albummanager.database.model.DataBase;
 import com.kidekdev.albummanager.database.model.album.AlbumDto;
@@ -10,7 +9,6 @@ import com.kidekdev.albummanager.database.model.journal.JournalDto;
 import com.kidekdev.albummanager.database.model.journal.JournalMessageDto;
 import com.kidekdev.albummanager.database.model.project.ProjectDto;
 import com.kidekdev.albummanager.database.model.resource.ResourceDto;
-import com.kidekdev.albummanager.database.model.tag.GlobalTagGroupsDto;
 import com.kidekdev.albummanager.database.model.view.ViewDto;
 
 import java.nio.file.Files;
@@ -50,8 +48,8 @@ public class FileDatabaseService implements DatabaseService {
 
         DatabaseLoader loader = new DatabaseLoader();
         try {
-            DatabaseLoadResult loadResult = loader.loadDatabase(path);
-            this.delegate = new InMemoryDatabaseService(loadResult);
+            DataBase loaded = loader.loadDatabase(path);
+            this.delegate = new InMemoryDatabaseService(loaded);
             this.databasePath = path;
             return new OperationResult(true, "Database loaded from " + path.toAbsolutePath());
         } catch (RuntimeException ex) {
@@ -69,7 +67,7 @@ public class FileDatabaseService implements DatabaseService {
         }
         DatabaseLoader loader = new DatabaseLoader();
         try {
-            DatabaseLoadResult loadResult = loader.createDatabase(path);
+            DataBase loadResult = loader.createDatabase(path);
             this.delegate = new InMemoryDatabaseService(loadResult);
             this.databasePath = path;
             return new OperationResult(true, "Initialized new database at " + path.toAbsolutePath());
@@ -81,7 +79,7 @@ public class FileDatabaseService implements DatabaseService {
     }
 
     private DatabaseService createEmptyDelegate() {
-        return new InMemoryDatabaseService(new DataBase(), new GlobalTagGroupsDto(Map.of()));
+        return new InMemoryDatabaseService(DataBase.empty());
     }
 
     @Override

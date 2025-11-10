@@ -1,6 +1,5 @@
 package com.kidekdev.albummanager.database.service;
 
-import com.kidekdev.albummanager.database.loader.DatabaseLoadResult;
 import com.kidekdev.albummanager.database.model.DataBase;
 import com.kidekdev.albummanager.database.model.album.AlbumDto;
 import com.kidekdev.albummanager.database.model.autoimport.ImportDto;
@@ -23,16 +22,11 @@ public class InMemoryDatabaseService implements DatabaseService {
     private final DataBase database;
     private final Map<String, String> groupByTag;
 
-    public InMemoryDatabaseService(DatabaseLoadResult loadResult) {
-        this(Objects.requireNonNull(loadResult, "loadResult").dataBase(), loadResult.globalTagGroups());
-    }
-
-    public InMemoryDatabaseService(DataBase initialState, GlobalTagGroupsDto tagGroups) {
-        this.database = new DataBase();
-        if (initialState != null) {
-            this.database.merge(initialState);
-        }
+    public InMemoryDatabaseService(DataBase initialState) {
+        DataBase seed = initialState != null ? initialState : DataBase.empty();
+        this.database = DataBase.empty().merge(seed);
         this.groupByTag = new LinkedHashMap<>();
+        GlobalTagGroupsDto tagGroups = this.database.globalTagGroups();
         if (tagGroups != null && tagGroups.getTagGroups() != null) {
             this.groupByTag.putAll(tagGroups.getTagGroups());
         }
