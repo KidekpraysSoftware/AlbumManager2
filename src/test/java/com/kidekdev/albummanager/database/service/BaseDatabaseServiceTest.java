@@ -13,7 +13,7 @@ abstract class BaseDatabaseServiceTest {
     @BeforeEach
     void setUpDatabase() {
         Path databasePath = Path.of(
-                "src", "main", "resources", "com", "kidekdev", "albummanager", "database-example", "metadata"
+                "src", "main", "resources", "database-example", "metadata"
         );
         DatabaseLoader loader = new DatabaseLoader();
         DatabaseLoadResult loadResult = loader.loadDatabase(databasePath);

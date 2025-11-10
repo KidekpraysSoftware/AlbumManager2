@@ -50,6 +50,7 @@ class ResourceDatabaseServiceTest extends BaseDatabaseServiceTest {
         ResourceDto newTrack = new ResourceDto(
                 newTrackId,
                 true,
+                false,
                 "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 ResourceType.TRACK,
                 ResourceExtension.MP3,

@@ -19,6 +19,7 @@ public class ResourceDto {
     @EqualsAndHashCode.Include
     private UUID id;
     private Boolean isActive;
+    private Boolean inFolder;
     private String hash;
     private ResourceType resourceType;
     private ResourceExtension extension;

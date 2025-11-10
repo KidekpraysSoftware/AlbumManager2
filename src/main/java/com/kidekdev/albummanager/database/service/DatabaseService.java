@@ -1,6 +1,7 @@
 package com.kidekdev.albummanager.database.service;
 
 import com.kidekdev.albummanager.database.model.album.AlbumDto;
+import com.kidekdev.albummanager.database.model.autoimport.ImportDto;
 import com.kidekdev.albummanager.database.model.folder.FolderDto;
 import com.kidekdev.albummanager.database.model.journal.JournalDto;
 import com.kidekdev.albummanager.database.model.journal.JournalMessageDto;
@@ -26,6 +27,8 @@ public interface DatabaseService {
 
     List<FolderDto> getAllFolders();
 
+    List<ImportDto> getAllImports();
+
     List<ViewDto> getAllViews();
 
     Map<String, List<String>> getAllTagGroups(); //key - группа, value - ее теги
@@ -42,6 +45,8 @@ public interface DatabaseService {
     Optional<AlbumDto> getAlbumById(UUID id);
 
     Optional<FolderDto> getFolderById(UUID id);
+
+    Optional<ImportDto> getImportById(UUID id);
 
     Optional<ViewDto> getViewById(UUID id);
 
@@ -63,5 +68,7 @@ public interface DatabaseService {
     SaveResult saveFolder(FolderDto folder);
 
     SaveResult saveView(ViewDto view);
+
+    SaveResult saveImport(ImportDto importRule);
 }
 

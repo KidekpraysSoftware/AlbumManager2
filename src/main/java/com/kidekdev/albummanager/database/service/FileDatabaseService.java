@@ -2,7 +2,9 @@ package com.kidekdev.albummanager.database.service;
 
 import com.kidekdev.albummanager.database.loader.DatabaseLoadResult;
 import com.kidekdev.albummanager.database.loader.DatabaseLoader;
+import com.kidekdev.albummanager.database.model.DataBase;
 import com.kidekdev.albummanager.database.model.album.AlbumDto;
+import com.kidekdev.albummanager.database.model.autoimport.ImportDto;
 import com.kidekdev.albummanager.database.model.folder.FolderDto;
 import com.kidekdev.albummanager.database.model.journal.JournalDto;
 import com.kidekdev.albummanager.database.model.journal.JournalMessageDto;
@@ -79,7 +81,7 @@ public class FileDatabaseService implements DatabaseService {
     }
 
     private DatabaseService createEmptyDelegate() {
-        return new InMemoryDatabaseService(Map.of(), new GlobalTagGroupsDto(Map.of()));
+        return new InMemoryDatabaseService(new DataBase(), new GlobalTagGroupsDto(Map.of()));
     }
 
     @Override
@@ -105,6 +107,11 @@ public class FileDatabaseService implements DatabaseService {
     @Override
     public List<FolderDto> getAllFolders() {
         return delegate.getAllFolders();
+    }
+
+    @Override
+    public List<ImportDto> getAllImports() {
+        return delegate.getAllImports();
     }
 
     @Override
@@ -145,6 +152,11 @@ public class FileDatabaseService implements DatabaseService {
     @Override
     public Optional<FolderDto> getFolderById(UUID id) {
         return delegate.getFolderById(id);
+    }
+
+    @Override
+    public Optional<ImportDto> getImportById(UUID id) {
+        return delegate.getImportById(id);
     }
 
     @Override
@@ -195,5 +207,10 @@ public class FileDatabaseService implements DatabaseService {
     @Override
     public SaveResult saveView(ViewDto view) {
         return delegate.saveView(view);
+    }
+
+    @Override
+    public SaveResult saveImport(ImportDto importRule) {
+        return delegate.saveImport(importRule);
     }
 }
