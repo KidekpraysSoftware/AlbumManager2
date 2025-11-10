@@ -4,6 +4,7 @@
 id: <uuid>
 hash: <sha256>             # строка из 64 шестнадцатеричных символов (дублирует имя файла)
 isActive: <boolean>        # Флаг активности ресурса
+inFolder: <boolean>        # true, если ресурс был импортирован из проекта (folder)
 resourceType: <enum>      # enum[TRACK, IMAGE, MIDI, VIDEO]
 extension: <enum>          # enum[WAV, MP3, FLAC, AIFF, OGG, PNG, JPEG, JPG, MID, MIDI, MP4, MOV, MKV] (ResourceExtension)
 description: "<string>"    # Краткое описание ресурса
