@@ -1,4 +1,4 @@
-package com.kidekdev.albummanager.database.service;
+package com.kidekdev.albummanager.common;
 
 /**
  * Represents outcome of filesystem database operations.

@@ -5,17 +5,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="205ab624-d3a1-4797-abc5-8b6342d888e7" name="Changes" comment="Init">
-      <change beforePath="$PROJECT_DIR$/src/main/resources/database-example/metadata/folder/4a2c773d-bd29-4329-ac75-871a6838784a.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database-example/metadata/folder/4a2c773d-bd29-4329-ac75-871a6838784a.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/facade/DatabaseFacadeImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/service/DatabaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/facade/DatabaseFacade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/service/FileDatabaseService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/service/InMemoryDatabaseService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/service/OperationResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/common/OperationResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/service/SaveResult.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/ui/controller/ApplicationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/ui/controller/ApplicationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/ui/controller/ImportTabController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/ui/controller/ImportTabController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/ui/controller/MainTabController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/ui/controller/MainTabController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/kidekdev/albummanager/database/service/AlbumDatabaseServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/kidekdev/albummanager/database/service/BaseDatabaseServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/kidekdev/albummanager/database/service/FolderDatabaseServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/kidekdev/albummanager/database/service/ImportDatabaseServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/kidekdev/albummanager/database/service/JournalDatabaseServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/kidekdev/albummanager/database/service/ProjectDatabaseServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/kidekdev/albummanager/database/service/ResourceDatabaseServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/kidekdev/albummanager/database/service/TagGroupsDatabaseServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/kidekdev/albummanager/database/service/ViewDatabaseServiceTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="codex/remove-databaseloadresult-and-refactor-database" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -38,26 +63,27 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.All in AlbumManager.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Kidek/Documents/Idea projects/AlbumManager/src/main/resources/com/kidekdev/albummanager/fxml&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.HelloApplication.executor": "Run",
+    "JUnit.All in AlbumManager.executor": "Run",
+    "JUnit.java in AlbumManager.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Kidek/Documents/Idea projects/AlbumManager/src/main/resources/com/kidekdev/albummanager/fxml",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Kidek\Documents\Idea projects\AlbumManager\src\main\resources\com\kidekdev\albummanager\fxml" />
@@ -68,6 +94,9 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Kidek\Documents\Idea projects\AlbumManager\src\main\resources" />
       <recent name="C:\Users\Kidek\Documents\Idea projects\AlbumManager\src\main\java" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.kidekdev.albummanager.database.facade" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.kidekdev.albummanager.ui.controller" />
@@ -95,8 +124,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="java in AlbumManager" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AlbumManager" />
+      <option name="TEST_OBJECT" value="directory" />
+      <dir value="$PROJECT_DIR$/src/test/java" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.All in AlbumManager" />
+        <item itemvalue="Application.Application" />
+        <item itemvalue="JUnit.java in AlbumManager" />
         <item itemvalue="JUnit.All in AlbumManager" />
       </list>
     </recent_temporary>
