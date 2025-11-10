@@ -1,6 +1,7 @@
 # === Example: Video ===
 id: "71acaf40-81d3-4a37-bbc5-708f9adcb83b"
 isActive: true
+inFolder: false
 hash: "cc718dde84928cf5b20110c0a084a5779ee2e697ec47371b21ac778c32f206a6"
 resourceType: VIDEO
 extension: MP4

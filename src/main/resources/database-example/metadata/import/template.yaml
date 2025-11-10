@@ -1,0 +1,8 @@
+id: "<uuid>"                 # UUID правила импорта
+path: "<absolute-path>"      # абсолютный путь к сканируемой папке
+importedAt: <epoch-millis>    # отметка времени первого сканирования
+resourceTypes:
+  - TRACK
+  # - IMAGE
+  # - MIDI
+  # - VIDEO

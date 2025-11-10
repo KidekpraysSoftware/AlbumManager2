@@ -1,6 +1,7 @@
 # === Example: Track (audio) ===
 id: "f9136f3e-90cb-4d6f-b1c5-3a2b04a2a4df"
 isActive: true
+inFolder: true
 hash: "eba030ecb203534dbe2b97dc4e6d92775f9f1daceb98423f76031406a417b4c3"
 resourceType: TRACK
 extension: WAV
