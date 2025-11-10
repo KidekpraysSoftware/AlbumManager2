@@ -5,25 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="205ab624-d3a1-4797-abc5-8b6342d888e7" name="Changes" comment="Init">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/facade/DatabaseFacadeImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/service/DatabaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/facade/DatabaseFacade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/service/FileDatabaseService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/service/InMemoryDatabaseService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/service/OperationResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/common/OperationResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/service/SaveResult.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/ui/controller/ApplicationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/ui/controller/ApplicationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/ui/controller/ImportTabController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/ui/controller/ImportTabController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/ui/controller/MainTabController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/ui/controller/MainTabController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/kidekdev/albummanager/database/service/AlbumDatabaseServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/kidekdev/albummanager/database/service/BaseDatabaseServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/kidekdev/albummanager/database/service/FolderDatabaseServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/kidekdev/albummanager/database/service/ImportDatabaseServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/kidekdev/albummanager/database/service/JournalDatabaseServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/kidekdev/albummanager/database/service/ProjectDatabaseServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/kidekdev/albummanager/database/service/ResourceDatabaseServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/kidekdev/albummanager/database/service/TagGroupsDatabaseServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/kidekdev/albummanager/database/service/ViewDatabaseServiceTest.java" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/kidekdev/albummanager/database/utils/DatabaseUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database-example/metadata/album/bb75ba42-0257-422f-a90e-cd1066fdd9f2.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database-example/album/bb75ba42-0257-422f-a90e-cd1066fdd9f2.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database-example/metadata/album/template.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database-example/album/template.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database-example/metadata/folder/4a2c773d-bd29-4329-ac75-871a6838784a.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database-example/folder/4a2c773d-bd29-4329-ac75-871a6838784a.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database-example/metadata/folder/template.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database-example/folder/template.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database-example/metadata/global/importfolder.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database-example/global/importfolder.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database-example/metadata/global/taggroups.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database-example/global/taggroups.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database-example/metadata/import/2ab741c4-e336-48fd-a1f3-d4055df1f264.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database-example/import/2ab741c4-e336-48fd-a1f3-d4055df1f264.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database-example/metadata/import/template.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database-example/import/template.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database-example/metadata/journal/9fd4b8c8-9a1b-43f5-9b37-9a1c5f782b52.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database-example/journal/9fd4b8c8-9a1b-43f5-9b37-9a1c5f782b52.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database-example/metadata/journal/template.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database-example/journal/template.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database-example/metadata/project/5f2dd787-e3ce-45f3-aa25-018a6c5cfd24.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database-example/project/5f2dd787-e3ce-45f3-aa25-018a6c5cfd24.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database-example/metadata/project/template.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database-example/project/template.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database-example/metadata/resource/71acaf40-81d3-4a37-bbc5-708f9adcb83b.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database-example/resource/71acaf40-81d3-4a37-bbc5-708f9adcb83b.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database-example/metadata/resource/9a1d01c7-43ff-4a3b-8bc8-f6bde7626a73.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database-example/resource/9a1d01c7-43ff-4a3b-8bc8-f6bde7626a73.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database-example/metadata/resource/f2a6e6e4-3c77-44e5-b33c-73d72c84d49c.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database-example/resource/f2a6e6e4-3c77-44e5-b33c-73d72c84d49c.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database-example/metadata/resource/f9136f3e-90cb-4d6f-b1c5-3a2b04a2a4df.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database-example/resource/f9136f3e-90cb-4d6f-b1c5-3a2b04a2a4df.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database-example/metadata/resource/template.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database-example/resource/template.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database-example/metadata/view/ae2c9cd6-6cc5-4dd6-91b8-2a3f3c4f1c8f.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database-example/view/ae2c9cd6-6cc5-4dd6-91b8-2a3f3c4f1c8f.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database-example/metadata/view/template.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database-example/view/template.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,6 +93,7 @@
       <recent name="C:\Users\Kidek\Documents\Idea projects\AlbumManager\src\main\java\com\kidekdev\albummanager\database" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Kidek\Documents\Idea projects\AlbumManager\src\main\resources\database-example" />
       <recent name="C:\Users\Kidek\Documents\Idea projects\AlbumManager\src\main\resources" />
       <recent name="C:\Users\Kidek\Documents\Idea projects\AlbumManager\src\main\java" />
     </key>
@@ -134,8 +136,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.All in AlbumManager" />
         <item itemvalue="Application.Application" />
+        <item itemvalue="JUnit.All in AlbumManager" />
         <item itemvalue="JUnit.java in AlbumManager" />
         <item itemvalue="JUnit.All in AlbumManager" />
       </list>
@@ -232,7 +234,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762772204002</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Init">
+      <option name="closed" value="true" />
+      <created>1762788541875</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1762788541875</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

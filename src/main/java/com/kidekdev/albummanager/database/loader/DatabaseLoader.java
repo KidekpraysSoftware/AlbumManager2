@@ -21,22 +21,15 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.*;
 
+import static com.kidekdev.albummanager.database.utils.DatabaseUtils.getDatabaseFolders;
+
 /**
  * Loads YAML entities from a file system folder into the in-memory database representation.
  */
 @Slf4j
 public class DatabaseLoader {
 
-    private static final Set<String> REQUIRED_FOLDERS = Set.of(
-            "album",
-            "folder",
-            "import",
-            "journal",
-            "project",
-            "resource",
-            "view",
-            "global"
-    );
+    private static final Set<String> REQUIRED_FOLDERS = getDatabaseFolders();
 
     private final ObjectMapper objectMapper;
 
