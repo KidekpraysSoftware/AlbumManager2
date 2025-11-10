@@ -45,29 +45,30 @@ public class DatabaseLoader {
         this.objectMapper.findAndRegisterModules();
     }
 
-    public DatabaseLoadResult loadDatabase(Path rootPath) {
-        Map<Path, UUID> pathIndex = new LinkedHashMap<>();
-        DataBase dataBase = new DataBase();
-
+    public DataBase loadDatabase(Path rootPath) {
         GlobalTagGroupsDto globalTagGroups = GlobalTagGroupsDto.load(rootPath);
-        scanForEntities(rootPath, pathIndex);
-        ensureUniqueIdentifiers(pathIndex);
-        loadEntities(rootPath, pathIndex, dataBase);
+        DataBase mutable = DataBase.builder()
+                .globalTagGroups(globalTagGroups)
+                .build();
 
-        DataBase immutableCopy = new DataBase(
-                dataBase.resources(),
-                dataBase.albums(),
-                dataBase.folders(),
-                dataBase.projects(),
-                dataBase.journals(),
-                dataBase.views(),
-                dataBase.imports()
+        scanForEntities(rootPath, mutable.pathIndex());
+        ensureUniqueIdentifiers(mutable.pathIndex());
+        loadEntities(rootPath, mutable);
+
+        return new DataBase(
+                mutable.pathIndex(),
+                mutable.resources(),
+                mutable.albums(),
+                mutable.folders(),
+                mutable.projects(),
+                mutable.journals(),
+                mutable.views(),
+                mutable.imports(),
+                mutable.globalTagGroups()
         );
-
-        return new DatabaseLoadResult(Map.copyOf(pathIndex), immutableCopy, globalTagGroups);
     }
 
-    public DatabaseLoadResult createDatabase(Path rootPath) {
+    public DataBase createDatabase(Path rootPath) {
         if (rootPath == null) {
             throw new IllegalArgumentException("Database path must not be null");
         }
@@ -145,8 +146,8 @@ public class DatabaseLoader {
         }
     }
 
-    private void loadEntities(Path rootPath, Map<Path, UUID> pathIndex, DataBase dataBase) {
-        pathIndex.forEach((path, uuid) -> loadEntity(rootPath, dataBase, path, uuid));
+    private void loadEntities(Path rootPath, DataBase dataBase) {
+        dataBase.pathIndex().forEach((path, uuid) -> loadEntity(rootPath, dataBase, path, uuid));
     }
 
     private void loadEntity(Path rootPath, DataBase dataBase, Path relativePath, UUID uuid) {

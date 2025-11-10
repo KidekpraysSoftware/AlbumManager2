@@ -6,97 +6,53 @@ import com.kidekdev.albummanager.database.model.folder.FolderDto;
 import com.kidekdev.albummanager.database.model.journal.JournalDto;
 import com.kidekdev.albummanager.database.model.project.ProjectDto;
 import com.kidekdev.albummanager.database.model.resource.ResourceDto;
+import com.kidekdev.albummanager.database.model.tag.GlobalTagGroupsDto;
 import com.kidekdev.albummanager.database.model.view.ViewDto;
+import lombok.Builder;
 
+import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
 /**
  * Strongly typed in-memory representation of the YAML database.
  */
-public class DataBase {
+@Builder
+public record DataBase(
+        Map<Path, UUID> pathIndex,
+        Map<UUID, ResourceDto> resources,
+        Map<UUID, AlbumDto> albums,
+        Map<UUID, FolderDto> folders,
+        Map<UUID, ProjectDto> projects,
+        Map<UUID, JournalDto> journals,
+        Map<UUID, ViewDto> views,
+        Map<UUID, ImportDto> imports,
+        GlobalTagGroupsDto globalTagGroups
+) {
 
-    private final Map<UUID, ResourceDto> resources;
-    private final Map<UUID, AlbumDto> albums;
-    private final Map<UUID, FolderDto> folders;
-    private final Map<UUID, ProjectDto> projects;
-    private final Map<UUID, JournalDto> journals;
-    private final Map<UUID, ViewDto> views;
-    private final Map<UUID, ImportDto> imports;
-
-    public DataBase() {
-        this(null, null, null, null, null, null, null);
+    public DataBase {
+        pathIndex = toLinkedHashMap(pathIndex);
+        resources = toLinkedHashMap(resources);
+        albums = toLinkedHashMap(albums);
+        folders = toLinkedHashMap(folders);
+        projects = toLinkedHashMap(projects);
+        journals = toLinkedHashMap(journals);
+        views = toLinkedHashMap(views);
+        imports = toLinkedHashMap(imports);
+        globalTagGroups = globalTagGroups != null ? globalTagGroups : new GlobalTagGroupsDto(Map.of());
     }
 
-    public DataBase(
-            Map<UUID, ResourceDto> resources,
-            Map<UUID, AlbumDto> albums,
-            Map<UUID, FolderDto> folders,
-            Map<UUID, ProjectDto> projects,
-            Map<UUID, JournalDto> journals,
-            Map<UUID, ViewDto> views,
-            Map<UUID, ImportDto> imports
-    ) {
-        this.resources = new LinkedHashMap<>();
-        this.albums = new LinkedHashMap<>();
-        this.folders = new LinkedHashMap<>();
-        this.projects = new LinkedHashMap<>();
-        this.journals = new LinkedHashMap<>();
-        this.views = new LinkedHashMap<>();
-        this.imports = new LinkedHashMap<>();
+    public static DataBase empty() {
+        return DataBase.builder().build();
+    }
 
-        if (resources != null) {
-            this.resources.putAll(resources);
+    private static <K, V> Map<K, V> toLinkedHashMap(Map<K, V> source) {
+        if (source == null) {
+            return new LinkedHashMap<>();
         }
-        if (albums != null) {
-            this.albums.putAll(albums);
-        }
-        if (folders != null) {
-            this.folders.putAll(folders);
-        }
-        if (projects != null) {
-            this.projects.putAll(projects);
-        }
-        if (journals != null) {
-            this.journals.putAll(journals);
-        }
-        if (views != null) {
-            this.views.putAll(views);
-        }
-        if (imports != null) {
-            this.imports.putAll(imports);
-        }
-    }
-
-    public Map<UUID, ResourceDto> resources() {
-        return resources;
-    }
-
-    public Map<UUID, AlbumDto> albums() {
-        return albums;
-    }
-
-    public Map<UUID, FolderDto> folders() {
-        return folders;
-    }
-
-    public Map<UUID, ProjectDto> projects() {
-        return projects;
-    }
-
-    public Map<UUID, JournalDto> journals() {
-        return journals;
-    }
-
-    public Map<UUID, ViewDto> views() {
-        return views;
-    }
-
-    public Map<UUID, ImportDto> imports() {
-        return imports;
+        return new LinkedHashMap<>(source);
     }
 
     public Optional<Object> findEntity(UUID id) {
@@ -138,17 +94,49 @@ public class DataBase {
         return Optional.ofNullable(entity);
     }
 
-    public void merge(DataBase other) {
+    public DataBase merge(DataBase other) {
         if (other == null) {
-            return;
+            return this;
         }
-        resources.putAll(Objects.requireNonNull(other).resources);
-        albums.putAll(other.albums);
-        folders.putAll(other.folders);
-        projects.putAll(other.projects);
-        journals.putAll(other.journals);
-        views.putAll(other.views);
-        imports.putAll(other.imports);
+
+        Map<Path, UUID> mergedPathIndex = new LinkedHashMap<>(pathIndex);
+        mergedPathIndex.putAll(other.pathIndex());
+
+        Map<UUID, ResourceDto> mergedResources = new LinkedHashMap<>(resources);
+        mergedResources.putAll(other.resources());
+
+        Map<UUID, AlbumDto> mergedAlbums = new LinkedHashMap<>(albums);
+        mergedAlbums.putAll(other.albums());
+
+        Map<UUID, FolderDto> mergedFolders = new LinkedHashMap<>(folders);
+        mergedFolders.putAll(other.folders());
+
+        Map<UUID, ProjectDto> mergedProjects = new LinkedHashMap<>(projects);
+        mergedProjects.putAll(other.projects());
+
+        Map<UUID, JournalDto> mergedJournals = new LinkedHashMap<>(journals);
+        mergedJournals.putAll(other.journals());
+
+        Map<UUID, ViewDto> mergedViews = new LinkedHashMap<>(views);
+        mergedViews.putAll(other.views());
+
+        Map<UUID, ImportDto> mergedImports = new LinkedHashMap<>(imports);
+        mergedImports.putAll(other.imports());
+
+        GlobalTagGroupsDto mergedTagGroups =
+                other.globalTagGroups() != null ? other.globalTagGroups() : globalTagGroups;
+
+        return DataBase.builder()
+                .pathIndex(mergedPathIndex)
+                .resources(mergedResources)
+                .albums(mergedAlbums)
+                .folders(mergedFolders)
+                .projects(mergedProjects)
+                .journals(mergedJournals)
+                .views(mergedViews)
+                .imports(mergedImports)
+                .globalTagGroups(mergedTagGroups)
+                .build();
     }
 }
 
