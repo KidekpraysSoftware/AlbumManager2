@@ -1,8 +1,0 @@
-# === YAML Import Rule Template ===
-# Файл: import/<UUID>.yaml
-
-id: <uuid>
-path: "<string>"                    # путь к папке с ресурсами
-isActive: <boolean>               # Флаг активности правила импорта
-importRule: <enum>                # enum[UPDATABLE_RESOURCE, RESOURCE_FOLDER]
-importedAt: <timestamp>           # миллисекунды с начала эпохи (UTC)
