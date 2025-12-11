@@ -59,7 +59,7 @@ public class JournalMessageEntity {
      * Attachments associated with the message.
      */
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(columnDefinition = "tags")
+    @Column(columnDefinition = "jsonb")
     LinkedHashSet<UUID> attachments;
 
     /**

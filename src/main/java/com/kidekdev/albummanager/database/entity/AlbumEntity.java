@@ -82,11 +82,11 @@ public class AlbumEntity {
     private UUID view;
 
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(columnDefinition = "items")
+    @Column(columnDefinition = "jsonb")
     LinkedHashSet<UUID> items;
 
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(columnDefinition = "journal")
+    @Column(columnDefinition = "jsonb")
     LinkedHashSet<UUID> journal;
 
 }

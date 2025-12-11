@@ -18,7 +18,7 @@ import java.util.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "resource")
+@Table(name = "resource_file")
 public class ResourceEntity {
 
     /**
@@ -28,10 +28,8 @@ public class ResourceEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false)
     private String resourceName;
 
-    @Column(nullable = false)
     private String authorName;
 
     /**
@@ -88,10 +86,10 @@ public class ResourceEntity {
     private OffsetDateTime fileCreationTime;
 
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(columnDefinition = "tags")
+    @Column(columnDefinition = "jsonb")
     LinkedHashSet<UUID> tags;
 
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(columnDefinition = "journal")
+    @Column(columnDefinition = "jsonb")
     LinkedHashSet<UUID> journal;
 }
