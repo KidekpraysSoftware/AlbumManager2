@@ -1,4 +1,4 @@
-package com.kidekdev.albummanager.ui.controller;
+package com.kidekdev.albummanager.ui.controller.scene;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

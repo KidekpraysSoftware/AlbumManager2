@@ -1,0 +1,48 @@
+.tab-pane {
+    -fx-tab-min-width: 160;
+    -fx-tab-max-width: 160;
+    -fx-tab-min-height: 32;
+    -fx-tab-max-height: 32;
+    -fx-background-color: transparent;
+    -fx-tab-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.tab-pane .tab-header-area {
+    -fx-background-color: transparent;
+}
+
+.tab-pane .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.tab-pane .tab {
+    -fx-background-insets: 0;
+    -fx-background-radius: 8;
+    -fx-padding: 0 8 0 8;
+    -fx-background-color: #1F2A3C; /* фоновый цвет таба */
+    -fx-text-base-color: #CDD6F4;
+    -fx-font-size: 13px;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: #3A4B6B; /* активный таб */
+    -fx-text-base-color: #FFFFFF;
+    -fx-font-weight: bold;
+}
+
+.tab-pane .tab-label {
+    -fx-padding: 4 8 4 8;
+}
+
+.tab-pane .tab:selected .tab-label {
+    -fx-background-color: #7189FF; /* фон бейджа */
+    -fx-background-radius: 6;
+    -fx-text-fill: white;
+}
+
+.tab-pane .tab:hover {
+    -fx-background-color: #2D3C56;
+    -fx-cursor: hand;
+}

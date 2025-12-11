@@ -1,0 +1,71 @@
+/* ---------- ContextMenu ---------- */
+.context-menu {
+    /* фон-карточка: лёгкий градиент + тень */
+    -fx-background-color: linear-gradient(to bottom right, #173459 0%, #0f243f 100%);
+    -fx-background-radius: 8;               /* те же плавные углы */
+    -fx-padding: 4;                         /* небольшой внутренний отступ */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.85), 8, 0.35, 0, 2);
+}
+
+/* ---------- Пункты меню ---------- */
+.menu-item {
+    -fx-background-color: transparent;      /* по умолчанию прозрачно */
+    -fx-text-fill: #f7efe5;                 /* тот же светлый текст, что и в списках */
+    -fx-font-size: 13px;
+    -fx-padding: 6 22 6 22;                 /* высота строки + правый отступ под галочки/стрелки */
+}
+
+.menu-item:hover,
+.menu-item:focused {
+    -fx-background-color: #253a50;          /* подсветка при наведении / фокусе */
+    -fx-background-radius: 6;
+}
+
+.menu-item:pressed {
+    -fx-background-color: #304b65;          /* нажатый пункт чуть темнее */
+}
+
+.menu-item:disabled {
+    -fx-text-fill: #667684;                 /* приглушённый текст для недоступных */
+}
+
+/* ---------- Разделитель ---------- */
+.context-menu .separator {
+    -fx-padding: 2 0 2 0;
+}
+.context-menu .separator:horizontal .line {
+    -fx-border-color: #334a66;              /* тонкая линия в тон общего фона */
+}
+
+/* ---------- Стрелки (sub-menu) ---------- */
+.menu-item > .arrow {
+    -fx-background-color: #f7efe5;
+}
+.menu-item:disabled > .arrow {
+    -fx-background-color: #667684;
+}
+
+/* ---------- Скроллбар, если меню длинное ---------- */
+.context-menu .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+.context-menu .scroll-bar:vertical .thumb {
+    -fx-background-color: #334a66;
+    -fx-background-insets: 0;
+    -fx-background-radius: 4;
+}
+.context-menu .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #3f5991;
+}
+
+/* Ярче текст у всех доступных пунктов ------------------------------ */
+.context-menu .menu-item > .label {
+    -fx-text-fill: #e4eef9;    /* чуть ярче, чем #f7efe5 */
+    -fx-opacity: 1;            /* убираем полупрозрачность Modena */
+}
+
+/* Для недоступных пунктов оставляем приглушёнными */
+.context-menu .menu-item:disabled > .label {
+    -fx-text-fill: #6c7c90;    /* на полтона светлее прежнего */
+    -fx-opacity: 1;            /* фиксируем, чтобы цвет был предсказуем */
+}

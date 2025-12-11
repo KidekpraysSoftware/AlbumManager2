@@ -1,0 +1,9 @@
+.filter-track-module {
+    -fx-background-color: #2a3b4b;
+    -fx-padding: 10 0 0 10;
+    -fx-border-color: #0d2b3b;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    /*-fx-border-width: 4;*/
+}

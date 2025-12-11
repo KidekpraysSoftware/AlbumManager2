@@ -1,0 +1,135 @@
+/* ======================================================================
+   Корневой контейнер трека (AnchorPane)
+   ====================================================================== */
+.track-player-item {
+    -fx-background-color: #2a3b4c;     /* как в .track-player-vbox */
+    /*-fx-background-radius: 10;*/
+    -fx-padding: 0;
+    -fx-border-color: #0d2b3b;
+    /*-fx-border-width: 2;*/
+    /*-fx-border-radius: 10;*/
+}
+.track-player-item:hover {
+    -fx-background-color: #277591;
+}
+
+/* ======================================================================
+   Кнопка ▶ PLAY
+   ====================================================================== */
+.play-button {
+    /*-fx-min-width: 52px;*/
+    /*-fx-pref-width: 52px;*/
+    /*-fx-pref-height: 91px;             !* высота корня *!*/
+    -fx-background-color: #ffffff;
+    -fx-shape: "M 0 0 L 10 5 L 0 10 Z";
+    -fx-cursor: hand;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0 6 6 0;    /* немного скруглённый правый край */
+}
+
+.play-button:hover {
+    -fx-background-color: #d9ddf0;
+}
+
+.play-button:pressed {
+    -fx-background-color: #7088fd;
+}
+
+.pause-button {
+    /*-fx-min-width: 52px;*/
+    /*-fx-pref-width: 52px;*/
+    /*-fx-pref-height: 91px;             !* высота корня *!*/
+    -fx-background-color: #ffffff;
+    -fx-shape: 'M 0 0 H 3 V 10 H 0 Z M 7 0 H 10 V 10 H 7 Z';
+    -fx-cursor: hand;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0 6 6 0;    /* немного скруглённый правый край */
+}
+
+.pause-button:hover {
+    -fx-background-color: #d9ddf0;
+}
+
+.pause-button:pressed {
+    -fx-background-color: #7088fd;
+}
+
+/* ======================================================================
+   Кнопка ⬜ (белая квадратная рамка)
+   ====================================================================== */
+.border-button {
+    -fx-background-color: transparent;
+    -fx-border-color: white;
+    -fx-border-width: 2;
+    -fx-border-radius: 0;
+    -fx-cursor: hand;
+    -fx-min-width: 40px;
+    -fx-min-height: 40px;
+    -fx-pref-width: 40px;
+    -fx-pref-height: 40px;
+}
+
+.border-button:hover {
+    -fx-border-color: #d9ddf0;
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+}
+
+.border-button:pressed {
+    -fx-border-color: #7088fd;
+    -fx-background-color: rgba(112, 136, 253, 0.2);
+}
+
+/* ======================================================================
+   VBox с информацией о треке
+   ====================================================================== */
+.track-info-box {
+    -fx-spacing: 2;
+}
+
+/* Название трека */
+.track-title {
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+}
+
+/* Подзаголовок / дополнительная информация */
+.track-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #c7c5bb;
+}
+
+/* ======================================================================
+   Слайдер времени воспроизведения
+   ====================================================================== */
+/*.playback-slider {*/
+/*    -fx-pref-height: 14px;*/
+/*    -fx-background-color: #51626c;*/
+/*    -fx-background-radius: 5;*/
+/*    -fx-padding: 5;*/
+/*    !* Здесь можно добавить стили для .thumb, .track, если нужно *!*/
+/*}*/
+
+.playback-slider .track {
+    -fx-background-color: #51626c;
+    -fx-background-radius: 5;
+    -fx-padding: 5;
+    -fx-pref-height: 5;
+}
+
+.playback-slider .thumb {
+    -fx-background-color: #ccc;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 1);
+}
+
+.playback-slider .thumb:hover {
+    -fx-background-color: #fff;
+}
+
+/* ======================================================================
+   Метка времени (справа)
+   ====================================================================== */
+.time-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #c7c5bb;
+}

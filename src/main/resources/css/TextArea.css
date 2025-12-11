@@ -1,0 +1,28 @@
+.text-area {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;         /* цвет текста */
+    -fx-background-color: #1f2c3c;  /* фон всего TextArea */
+    -fx-padding: 10px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-border-color: white;
+    -fx-border-width: 1px;
+}
+
+/* фон области, где печатается текст */
+.text-area .content {
+    -fx-background-color: transparent;
+}
+
+/* настройка скроллбаров */
+.text-area .scroll-bar:vertical,
+.text-area .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-bar .thumb {
+    -fx-background-color: #555555;
+    -fx-background-radius: 4px;
+}

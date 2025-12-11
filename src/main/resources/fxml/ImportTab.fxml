@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1000.0" prefWidth="1920.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kidekdev.albummanager.ui.controller.ImportTabController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1000.0" prefWidth="1920.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kidekdev.albummanager.ui.controller.scene.ImportTabController">
     <children>
         <ScrollPane layoutX="14.0" layoutY="61.0" prefHeight="1139.0" prefWidth="1019.0">
             <content>

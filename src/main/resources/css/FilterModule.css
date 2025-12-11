@@ -1,0 +1,49 @@
+.filter-module {
+    -fx-padding: 16;
+    -fx-background-color: transparent;
+    fx-border-width: 4;
+    -fx-border-color: #10313e;
+}
+
+.filter-scroll-pane{
+    -fx-background-color: #2a3b4b;
+}
+
+.filter-checkbox {
+    -fx-font-size: 16;
+    -fx-text-fill: #e6e4db;
+    -fx-font-weight: bold;
+    -fx-max-width: Infinity;
+}
+
+/*.check-box {*/
+/*    -fx-text-fill: #ffffff;*/
+/*    -fx-font-weight: bold;*/
+/*}*/
+
+.check-box .box {
+    -fx-background-color: #e6e4db;
+    -fx-border-color: #333;
+    -fx-border-radius: 3;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #444;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: #000;
+}
+
+/*.filter-checkbox .box {*/
+/*    -fx-background-color: rgba(0, 255, 14, 0);*/
+/*}*/
+
+/*.filter-checkbox:selected .box {*/
+/*    -fx-background-color: rgba(255, 0, 0, 0);*/
+/*}*/
+
+/*.filter-checkbox:armed .box {*/
+/*    -fx-background-color: rgba(3, 136, 255, 0);*/
+/*}*/

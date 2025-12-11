@@ -9,15 +9,15 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="1000" maxWidth="1920" prefHeight="1000" prefWidth="1920" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kidekdev.albummanager.ui.controller.MainTabController">
+<AnchorPane maxHeight="1000" maxWidth="1920" prefHeight="1000" prefWidth="1920" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kidekdev.albummanager.ui.controller.scene.MainTabController">
    <children>
       <VBox maxHeight="1000" maxWidth="1920" minHeight="1000" minWidth="1920" prefHeight="1000" prefWidth="1920">
          <children>
             <GridPane gridLinesVisible="true" maxHeight="660" maxWidth="1920" minHeight="660" minWidth="1920" prefHeight="665" prefWidth="1920">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="300" minWidth="10" prefWidth="300" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="450" minWidth="10" prefWidth="450" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="450.0" minWidth="10.0" prefWidth="405.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="491.0" minWidth="10.0" prefWidth="345.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints maxHeight="30" minHeight="0" prefHeight="30" vgrow="SOMETIMES" />
@@ -34,7 +34,7 @@
                   <Label alignment="CENTER" prefHeight="34" prefWidth="320" text="Ресурсы" />
                   <ScrollPane layoutX="310.0" layoutY="40.0" GridPane.rowIndex="1">
                      <content>
-                        <VBox fx:id="resourceListVBox" />
+                        <VBox fx:id="mainResourceList" />
                      </content>
                   </ScrollPane>
                </children>

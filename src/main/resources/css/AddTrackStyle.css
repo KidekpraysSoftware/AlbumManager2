@@ -1,0 +1,90 @@
+@import url("styles.css");
+
+/* Общий стиль диалогового окна */
+.dialog-pane {
+    -fx-background-color: #1d2c35;
+    -fx-background-radius: 0 0 10 10; /* только снизу */
+    -fx-border-radius: 0 0 10 10;
+    -fx-border-color: #2e3f4b;
+    -fx-border-width: 2;
+    -fx-padding: 16;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+/* Заголовки и метки */
+.label, .dialog-pane .content.label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* Кнопки */
+.dialog-pane > .button-bar {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-spacing: 8;
+    -fx-alignment: center-right;
+}
+
+.dialog-pane > .button-bar > .button {
+    -fx-background-color: #2e3f4b;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-padding: 6 14 6 14;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-color: #445f6e;
+    -fx-border-width: 1;
+    -fx-cursor: hand;
+}
+
+.dialog-pane > .button-bar > .button:hover {
+    -fx-background-color: #3b4f5f;
+}
+
+.dialog-pane > .button-bar > .button:default {
+    -fx-background-color: #4b7fa3;
+    -fx-text-fill: white;
+}
+
+.dialog-pane > .button-bar > .button:cancel {
+    -fx-background-color: #6b2b2b;
+    -fx-text-fill: white;
+}
+
+.dialog-pane .button-bar .container .button {
+    -fx-background-color: #2e3f4b;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-color: #445f6e;
+    -fx-border-width: 1;
+    -fx-cursor: hand;
+}
+
+.dialog-pane .button-bar .container .button:hover {
+    -fx-background-color: #3b4f5f;
+}
+
+
+
+.AddTrackPropertyAnchorPane {
+    -fx-background-color: #445f6e;
+    /*-fx-padding: 10;*/
+    -fx-border-color: #ffffff;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+/*VBox,*/
+/*HBox {*/
+/*    -fx-background-color: transparent;*/
+/*    !*-fx-border-color: #cccccc;*!*/
+/*    !*-fx-spacing: 10;*!*/
+/*}*/
+
+Separator {
+    -fx-background-color: #c7c7c7;
+}

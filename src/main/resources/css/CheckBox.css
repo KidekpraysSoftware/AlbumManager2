@@ -1,0 +1,32 @@
+CheckBox {
+    -fx-font-size: 16;
+    -fx-text-fill: #e6e4db;
+    -fx-font-weight: bold;
+    -fx-max-width: Infinity;
+}
+
+.check-box {
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-padding: 2px 0; /* уменьшили вертикальные отступы */
+}
+
+.check-box .box {
+    -fx-background-color: #273a4f;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 2px;
+    -fx-border-radius: 4px;
+    -fx-background-insets: 0;
+    -fx-pref-width: 16px;
+    -fx-pref-height: 16px;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #f0e8da;
+    -fx-border-color: #cccccc;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: #273a4f;
+}
