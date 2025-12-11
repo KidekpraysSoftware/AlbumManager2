@@ -1,6 +1,7 @@
 # === Example: Image ===
 id: "9a1d01c7-43ff-4a3b-8bc8-f6bde7626a73"
 isActive: true
+path: "D:/project/image.png"
 inFolder: false
 hash: "61fe4fe9af6c6402f7db5fc318003ffda1e1b0aaaef10bbc59e6d0ae13cf354d"
 resourceType: IMAGE
