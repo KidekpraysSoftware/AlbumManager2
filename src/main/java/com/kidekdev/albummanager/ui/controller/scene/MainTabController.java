@@ -29,9 +29,9 @@ public class MainTabController {
     protected void initialize() {
         log.info("Инициализация MainTabController");
         setupResourceListDD();
-        TrackRowModule track1 = new TrackRowModule(Path.of("D:/Green Zone/Музыкальный проект/Действующие проекты/Сессии/S1/216.mp3"), UUID.randomUUID(), "Трек 216", "Неизвестен");
-        TrackRowModule track2 = new TrackRowModule(Path.of("D:/Green Zone/Музыкальный проект/Действующие проекты/Сессии/S1/217.mp3"), UUID.randomUUID(), "Трек 217", "Неизвестен");
-        TrackRowModule track3 = new TrackRowModule(Path.of("D:/Green Zone/Музыкальный проект/Действующие проекты/Сессии/S1/218.mp3"), UUID.randomUUID(), "Трек 218", "Неизвестен");
+//        TrackRowModule track1 = new TrackRowModule(Path.of("D:/Green Zone/Музыкальный проект/Действующие проекты/Сессии/S1/216.mp3"), UUID.randomUUID(), "Трек 216", "Неизвестен");
+//        TrackRowModule track2 = new TrackRowModule(Path.of("D:/Green Zone/Музыкальный проект/Действующие проекты/Сессии/S1/217.mp3"), UUID.randomUUID(), "Трек 217", "Неизвестен");
+//        TrackRowModule track3 = new TrackRowModule(Path.of("D:/Green Zone/Музыкальный проект/Действующие проекты/Сессии/S1/218.mp3"), UUID.randomUUID(), "Трек 218", "Неизвестен");
 //        mainResourceList.getChildren().add(track1);
 //        mainResourceList.getChildren().add(track2);
 //        mainResourceList.getChildren().add(track3);
