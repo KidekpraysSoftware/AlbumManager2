@@ -29,7 +29,7 @@ public class AlbumManagerLiteApplication extends Application {
     }
 
     private void initBackend(){
-        EventDispatcher.scanAndRegisterHandlers("com.kidekdev.frontend");
+        EventDispatcher.scanAndRegisterHandlers("com.kidekdev.albummanager.ui");
 
         Path databaseRoot = Path.of("C:/Users/Kidek/Desktop/AMMetadata");
         DatabaseHolder.database = new DatabaseLoader().loadDatabase(databaseRoot);
