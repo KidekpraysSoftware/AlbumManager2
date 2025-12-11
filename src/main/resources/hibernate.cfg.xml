@@ -18,8 +18,6 @@
         <mapping class="com.kidekdev.albummanager.database.entity.DynamicResourceEntity"/>
         <mapping class="com.kidekdev.albummanager.database.entity.ImportRuleEntity"/>
         <mapping class="com.kidekdev.albummanager.database.entity.ViewEntity"/>
-        <mapping class="com.kidekdev.albummanager.database.entity.JournalEntity"/>
         <mapping class="com.kidekdev.albummanager.database.entity.JournalMessageEntity"/>
-        <mapping class="com.kidekdev.albummanager.database.entity.TagGroupEntity"/>
     </session-factory>
 </hibernate-configuration>

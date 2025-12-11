@@ -1,7 +1,7 @@
 package com.kidekdev.albummanager.database.entity;
 
-import com.kidekdev.albummanager.database.model.common.ResourceType;
-import com.kidekdev.albummanager.database.model.resource.ResourceExtension;
+import com.kidekdev.albummanager.database.type.ResourceExtension;
+import com.kidekdev.albummanager.database.type.ResourceType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

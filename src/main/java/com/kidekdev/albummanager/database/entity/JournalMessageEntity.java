@@ -1,6 +1,6 @@
 package com.kidekdev.albummanager.database.entity;
 
-import com.kidekdev.albummanager.database.model.journal.JournalMessageType;
+import com.kidekdev.albummanager.database.type.JournalMessageType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;

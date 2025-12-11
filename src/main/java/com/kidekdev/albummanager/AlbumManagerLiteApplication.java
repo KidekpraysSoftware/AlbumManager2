@@ -1,10 +1,5 @@
 package com.kidekdev.albummanager;
 
-import com.kidekdev.albummanager.common.OperationResult;
-import com.kidekdev.albummanager.database.facade.DatabaseFacadeImpl;
-import com.kidekdev.albummanager.database.loader.DatabaseLoader;
-import com.kidekdev.albummanager.database.model.DataBase;
-import com.kidekdev.albummanager.ui.context.DatabaseHolder;
 import com.kidekdev.albummanager.ui.dispatcher.EventDispatcher;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -31,9 +26,9 @@ public class AlbumManagerLiteApplication extends Application {
     private void initBackend(){
         EventDispatcher.scanAndRegisterHandlers("com.kidekdev.albummanager.ui");
 
-        Path databaseRoot = Path.of("C:/Users/Kidek/Desktop/AMMetadata");
-        DatabaseHolder.database = new DatabaseLoader().loadDatabase(databaseRoot);
-        DatabaseHolder.databaseFacade = new DatabaseFacadeImpl(DatabaseHolder.database);
+//        Path databaseRoot = Path.of("C:/Users/Kidek/Desktop/AMMetadata");
+//        DatabaseHolder.database = new DatabaseLoader().loadDatabase(databaseRoot);
+//        DatabaseHolder.databaseFacade = new DatabaseFacadeImpl(DatabaseHolder.database);
     }
 
     public static void main(String[] args) {

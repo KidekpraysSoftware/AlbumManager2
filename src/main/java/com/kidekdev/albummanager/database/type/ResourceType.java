@@ -1,4 +1,4 @@
-package com.kidekdev.albummanager.database.model.common;
+package com.kidekdev.albummanager.database.type;
 
 public enum ResourceType {
     TRACK,

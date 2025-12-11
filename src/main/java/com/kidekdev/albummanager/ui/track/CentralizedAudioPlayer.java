@@ -4,9 +4,9 @@ package com.kidekdev.albummanager.ui.track;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import lombok.extern.slf4j.Slf4j;
-import javafx.scene.media.MediaPlayer;
 
 import java.nio.file.Path;
 

@@ -1,16 +1,13 @@
 package com.kidekdev.albummanager.database.entity;
 
-import com.kidekdev.albummanager.database.model.common.ResourceType;
-import com.kidekdev.albummanager.database.model.common.WorkflowStatus;
+import com.kidekdev.albummanager.database.type.WorkflowStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.Set;
 import java.util.UUID;
 
 /**

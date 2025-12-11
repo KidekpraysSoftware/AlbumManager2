@@ -1,6 +1,6 @@
 package com.kidekdev.albummanager.ui.controller.scene;
 
-import com.kidekdev.albummanager.database.model.resource.ResourceExtension;
+import com.kidekdev.albummanager.database.type.ResourceExtension;
 import com.kidekdev.albummanager.ui.dispatcher.EventDispatcher;
 import com.kidekdev.albummanager.ui.dispatcher.event.AddNewResourceEvent;
 import com.kidekdev.albummanager.ui.track.TrackRowModule;

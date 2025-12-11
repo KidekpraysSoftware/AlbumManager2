@@ -1,4 +1,4 @@
-package com.kidekdev.albummanager.database.model.resource;
+package com.kidekdev.albummanager.database.type;
 
 /**
  * Supported resource file extensions.
