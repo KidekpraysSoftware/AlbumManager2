@@ -1,21 +1,13 @@
 package com.kidekdev.albummanager.database.entity;
 
 import com.kidekdev.albummanager.database.model.common.ResourceType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Auto-import folder definition used for scanning project resources.
@@ -23,8 +15,8 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "folders")
-public class FolderEntity {
+@Table(name = "dynamic_resource")
+public class DynamicResourceEntity {
 
     /**
      * Unique identifier of the folder entry.
@@ -59,7 +51,17 @@ public class FolderEntity {
     /**
      * Optional resource used as preview for the folder.
      */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "view_id")
-    private ResourceEntity view;
+    private UUID view;
+
+    /**
+     * Resources linked with the project.
+     */
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "items")
+    LinkedHashSet<UUID> items;
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "journal")
+    LinkedHashSet<UUID> journal;
+
 }

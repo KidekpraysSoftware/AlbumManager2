@@ -17,8 +17,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -28,7 +31,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "albums")
+@Table(name = "album")
 public class AlbumEntity {
 
     /**
@@ -67,18 +70,6 @@ public class AlbumEntity {
     @Enumerated(EnumType.STRING)
     private WorkflowStatus status;
 
-    /**
-     * Resources that belong to the album.
-     */
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "album_resources",
-            joinColumns = @JoinColumn(name = "album_id"),
-            inverseJoinColumns = @JoinColumn(name = "resource_id"))
-    private Set<ResourceEntity> resources = new HashSet<>();
-
-    /**
-     * Creation timestamp stored as epoch millis UTC.
-     */
     private Long createdAt;
 
     /**
@@ -90,14 +81,19 @@ public class AlbumEntity {
     /**
      * Resource used as album wallpaper.
      */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "wallpaper_id")
-    private ResourceEntity wallpaper;
+    private UUID wallpaper;
 
     /**
      * Resource used as preview (audio track).
      */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "view_id")
-    private ResourceEntity view;
+    private UUID view;
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "items")
+    LinkedHashSet<UUID> items;
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "journal")
+    LinkedHashSet<UUID> journal;
+
 }

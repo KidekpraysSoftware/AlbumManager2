@@ -26,7 +26,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "import_rules")
+@Table(name = "import_rule")
 public class ImportRuleEntity {
 
     /**
@@ -48,11 +48,9 @@ public class ImportRuleEntity {
     private Long importedAt;
 
     /**
-     * Resource types that should be imported from the path.
+     * Resource type that should be imported from the path.
      */
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "import_rule_types", joinColumns = @JoinColumn(name = "rule_id"))
     @Enumerated(EnumType.STRING)
     @Column(name = "resource_type")
-    private Set<ResourceType> resourceTypes = new HashSet<>();
+    private ResourceType resourceType;
 }

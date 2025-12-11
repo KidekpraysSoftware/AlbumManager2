@@ -1,20 +1,16 @@
 package com.kidekdev.albummanager.database.entity;
 
-import com.kidekdev.albummanager.database.entity.tag.TagEntity;
 import com.kidekdev.albummanager.database.model.common.ResourceType;
 import com.kidekdev.albummanager.database.model.resource.ResourceExtension;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Entity that stores metadata of a single resource file previously persisted in YAML.
@@ -91,11 +87,11 @@ public class ResourceEntity {
     @Column(nullable = false)
     private OffsetDateTime fileCreationTime;
 
-    /* ---------- Теги ---------- */
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "tags")
+    LinkedHashSet<UUID> tags;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "resource_tag_link",
-            joinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id"))
-    Set<TagEntity> tags = new HashSet<>();
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "journal")
+    LinkedHashSet<UUID> journal;
 }

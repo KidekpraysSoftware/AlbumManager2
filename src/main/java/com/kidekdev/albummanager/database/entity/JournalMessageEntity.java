@@ -15,19 +15,21 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
+import java.time.OffsetDateTime;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
 
-/**
- * Single journal record connected to the parent {@link JournalEntity}.
- */
 @Getter
 @Setter
 @Entity
-@Table(name = "journal_entries")
-public class JournalEntryEntity {
+@Table(name = "journal_message")
+public class JournalMessageEntity {
 
     /**
      * Surrogate identifier used by Hibernate.
@@ -56,20 +58,14 @@ public class JournalEntryEntity {
     /**
      * Attachments associated with the message.
      */
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "journal_entry_attachments", joinColumns = @JoinColumn(name = "entry_id"))
-    @Column(name = "attachment_id")
-    private Set<UUID> attachments = new HashSet<>();
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "tags")
+    LinkedHashSet<UUID> attachments;
 
     /**
      * Timestamp of another entry that this one comments on.
      */
-    private Long commentOn;
+    @CreationTimestamp
+    private OffsetDateTime commentOn;
 
-    /**
-     * Parent journal this entry belongs to.
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "journal_id")
-    private JournalEntity journal;
 }

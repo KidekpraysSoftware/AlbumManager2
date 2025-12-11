@@ -15,11 +15,11 @@
         <mapping class="com.kidekdev.albummanager.database.entity.ResourceEntity"/>
         <mapping class="com.kidekdev.albummanager.database.entity.AlbumEntity"/>
         <mapping class="com.kidekdev.albummanager.database.entity.ProjectEntity"/>
-        <mapping class="com.kidekdev.albummanager.database.entity.FolderEntity"/>
+        <mapping class="com.kidekdev.albummanager.database.entity.DynamicResourceEntity"/>
         <mapping class="com.kidekdev.albummanager.database.entity.ImportRuleEntity"/>
         <mapping class="com.kidekdev.albummanager.database.entity.ViewEntity"/>
         <mapping class="com.kidekdev.albummanager.database.entity.JournalEntity"/>
-        <mapping class="com.kidekdev.albummanager.database.entity.JournalEntryEntity"/>
+        <mapping class="com.kidekdev.albummanager.database.entity.JournalMessageEntity"/>
         <mapping class="com.kidekdev.albummanager.database.entity.TagGroupEntity"/>
     </session-factory>
 </hibernate-configuration>

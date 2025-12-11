@@ -1,23 +1,15 @@
 package com.kidekdev.albummanager.database.entity;
 
+import com.kidekdev.albummanager.database.model.common.ResourceType;
 import com.kidekdev.albummanager.database.model.common.WorkflowStatus;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -27,7 +19,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "projects")
+@Table(name = "project")
 public class ProjectEntity {
 
     /**
@@ -56,15 +48,6 @@ public class ProjectEntity {
     private WorkflowStatus status;
 
     /**
-     * Resources linked with the project.
-     */
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "project_resources",
-            joinColumns = @JoinColumn(name = "project_id"),
-            inverseJoinColumns = @JoinColumn(name = "resource_id"))
-    private Set<ResourceEntity> resources = new HashSet<>();
-
-    /**
      * Creation timestamp (epoch millis UTC).
      */
     private Long createdAt;
@@ -78,7 +61,16 @@ public class ProjectEntity {
     /**
      * Primary resource used as preview or main track.
      */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "view_id")
-    private ResourceEntity view;
+    private UUID view;
+
+    /**
+     * Resources linked with the project.
+     */
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "items")
+    LinkedHashSet<UUID> items;
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "journal")
+    LinkedHashSet<UUID> journal;
 }

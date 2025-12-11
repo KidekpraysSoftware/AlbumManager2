@@ -1,4 +1,4 @@
-package com.kidekdev.albummanager.database.entity.tag;
+package com.kidekdev.albummanager.database.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,15 +25,14 @@ public class TagEntity {
     @Column(name = "name", unique = true, nullable = false)
     String name;
 
+    @Column(name = "group", nullable = false)
+    String group;
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false)
     protected OffsetDateTime createdAt;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "group_id")
-    private TagGroupEntity group;
-
-    public TagEntity(String name, TagGroupEntity group) {
+    public TagEntity(String name, String group) {
         this.name = name;
         this.group = group;
     }
