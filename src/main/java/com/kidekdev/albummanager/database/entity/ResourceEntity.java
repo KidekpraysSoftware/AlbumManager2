@@ -1,23 +1,15 @@
 package com.kidekdev.albummanager.database.entity;
 
+import com.kidekdev.albummanager.database.entity.tag.TagEntity;
 import com.kidekdev.albummanager.database.model.common.ResourceType;
 import com.kidekdev.albummanager.database.model.resource.ResourceExtension;
-import jakarta.persistence.CollectionTable;
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapKeyColumn;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -30,7 +22,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "resources")
+@Table(name = "resource")
 public class ResourceEntity {
 
     /**
@@ -39,6 +31,12 @@ public class ResourceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    @Column(nullable = false)
+    private String resourceName;
+
+    @Column(nullable = false)
+    private String authorName;
 
     /**
      * Whether the resource should be used by the application.
@@ -49,18 +47,17 @@ public class ResourceEntity {
     /**
      * Absolute or project relative path of the file on disk.
      */
-    @Column(nullable = false)
     private String path;
 
     /**
      * Indicates that the resource was imported from a project folder scan.
      */
-    private Boolean inFolder;
+    private Boolean isDynamic;
 
     /**
      * SHA-256 hash of the file content.
      */
-    @Column(length = 128)
+    @Column(length = 128, nullable = false, unique = true)
     private String hash;
 
     /**
@@ -82,55 +79,23 @@ public class ResourceEntity {
     private String description;
 
     /**
-     * Size of the file in bytes.
-     */
-    private Long sizeBytes;
-
-    /**
      * Moment the resource was added to the system (epoch millis UTC).
      */
-    private Long importedAt;
+    @Column(nullable = false)
+    @CreationTimestamp
+    private OffsetDateTime importedAt;
 
     /**
      * Original creation time of the file (epoch millis UTC).
      */
-    private Long created;
+    @Column(nullable = false)
+    private OffsetDateTime fileCreationTime;
 
-    /**
-     * Original modification time of the file (epoch millis UTC).
-     */
-    private Long modified;
+    /* ---------- Теги ---------- */
 
-    /**
-     * User defined tags attached to the resource.
-     */
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "resource_tags", joinColumns = @JoinColumn(name = "resource_id"))
-    @Column(name = "tag")
-    private Set<String> tags = new HashSet<>();
-
-    /**
-     * Arbitrary metadata key-value pairs extracted from the file.
-     */
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "resource_metadata", joinColumns = @JoinColumn(name = "resource_id"))
-    @MapKeyColumn(name = "meta_key")
-    @Column(name = "meta_value")
-    private Map<String, String> metadata = new HashMap<>();
-
-    public void setTags(Iterable<String> tags) {
-        this.tags.clear();
-        if (tags != null) {
-            for (String tag : tags) {
-                this.tags.add(tag);
-            }
-        }
-    }
-
-    public void setMetadata(Map<String, String> metadata) {
-        this.metadata.clear();
-        if (metadata != null) {
-            this.metadata.putAll(metadata);
-        }
-    }
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "resource_tag_link",
+            joinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    Set<TagEntity> tags = new HashSet<>();
 }
