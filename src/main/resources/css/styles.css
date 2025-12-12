@@ -47,8 +47,8 @@ Label {
 VBox,
 HBox {
     -fx-background-color: transparent;
-    /*-fx-border-color: #cccccc;*/
-    /*-fx-spacing: 10;*/
+    -fx-border-color: #1a7de5;
+    -fx-spacing: 10;
 }
 
 /*.VboxSection {*/

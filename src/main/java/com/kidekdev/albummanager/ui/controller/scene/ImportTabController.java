@@ -12,7 +12,10 @@ import com.kidekdev.albummanager.ui.utils.CollectionUtils;
 import com.kidekdev.albummanager.ui.utils.HashUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.TransferMode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
@@ -25,6 +28,10 @@ import java.util.*;
 
 @Slf4j
 public class ImportTabController {
+
+    @FXML
+    private AnchorPane importAnchorPane;
+
     @FXML
     private Button importButton;
 
@@ -34,12 +41,11 @@ public class ImportTabController {
     @FXML
     private VBox newResourceVBox;
 
-//    private final Map<UUID, ImportRuleDto> importRules = new LinkedHashMap<>();
-
     @FXML
     protected void initialize() {
         log.info("Инициализация ImportTabController");
-        importButton.setOnAction(event -> handleCreateAutoImport());
+        initImportListDnD();
+        importButton.setOnAction(event -> handleCreateAutoImportButton());
         updateImportResourceList();
     }
 
@@ -73,7 +79,7 @@ public class ImportTabController {
         newResources.forEach(path -> newResourceVBox.getChildren().add(new TrackRowModule(path)));
     }
 
-    private void handleCreateAutoImport() {
+    private void handleCreateAutoImportButton() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Выберите папку для автоимпорта");
         File selectedDirectory = directoryChooser.showDialog(importButton.getScene().getWindow());
@@ -81,37 +87,69 @@ public class ImportTabController {
         if (selectedDirectory == null) {
             return;
         }
-
-        Optional<ResourceType> selectedType = askForResourceType();
-        if (selectedType.isEmpty()) {
-            return;
-        }
-
         String path = selectedDirectory.getAbsolutePath();
-        ResourceType resourceType = selectedType.get();
-
-        boolean isDuplicate = DatabaseHolder.importRule.findAll().stream()
-                .anyMatch(rule -> rule.path().equals(path) && rule.resourceType() == resourceType);
-
-        if (isDuplicate) {
-            AlertUtils.showWarnAlert("Такое сочетание пути и типа ресурса уже существует");
-            return;
-        }
-
-        ImportRuleDto dto = ImportRuleDto.builder()
-                .path(path)
-                .resourceType(resourceType)
-                .isActive(true)
-                .build();
-
-        OperationResult result = DatabaseHolder.importRule.save(dto);
-        if (!result.isSuccess()) {
-            AlertUtils.showErrorAlert(result.message());
-            return;
-        }
-
-        updateImportResourceList();
+        handleCreate(path);
     }
+    private void initImportListDnD() {
+
+        importAnchorPane.setOnDragOver(event -> {
+            Dragboard db = event.getDragboard();
+            if (db.hasFiles() && db.getFiles().stream().allMatch(File::isDirectory)) {
+                event.acceptTransferModes(TransferMode.COPY);
+            }
+            event.consume();
+        });
+
+        importAnchorPane.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+
+            if (db.hasFiles()) {
+                for (File file : db.getFiles()) {
+                    if (file.isDirectory()) {
+                        handleCreate(file.getAbsolutePath());
+                        success = true;
+                    }
+                }
+            }
+
+            event.setDropCompleted(success);
+            event.consume();
+        });
+    }
+
+   void handleCreate(String path) {
+
+       Optional<ResourceType> selectedType = askForResourceType();
+       if (selectedType.isEmpty()) {
+           return;
+       }
+
+
+       ResourceType resourceType = selectedType.get();
+
+       boolean isDuplicate = DatabaseHolder.importRule.findAll().stream()
+               .anyMatch(rule -> rule.path().equals(path) && rule.resourceType() == resourceType);
+
+       if (isDuplicate) {
+           AlertUtils.showWarnAlert("Такое сочетание пути и типа ресурса уже существует");
+           return;
+       }
+
+       ImportRuleDto dto = ImportRuleDto.builder()
+               .path(path)
+               .resourceType(resourceType)
+               .isActive(true)
+               .build();
+
+       OperationResult result = DatabaseHolder.importRule.save(dto);
+       if (!result.isSuccess()) {
+           AlertUtils.showErrorAlert(result.message());
+           return;
+       }
+
+       updateImportResourceList();
+   };
 
     private Optional<ResourceType> askForResourceType() {
         ChoiceDialog<ResourceType> dialog = new ChoiceDialog<>(ResourceType.TRACK, ResourceType.values());
