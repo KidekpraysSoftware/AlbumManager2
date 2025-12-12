@@ -1,6 +1,7 @@
 package com.kidekdev.albummanager.database.dao;
 
 import com.kidekdev.albummanager.common.OperationResult;
+import com.kidekdev.albummanager.database.dao.impl.ResourceDatabaseFacadeImpl;
 import com.kidekdev.albummanager.database.dto.ResourceDto;
 import com.kidekdev.albummanager.database.entity.ResourceEntity;
 import com.kidekdev.albummanager.database.mapper.ResourceMapper;
