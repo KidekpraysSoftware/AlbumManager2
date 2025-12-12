@@ -47,4 +47,10 @@ public class ImportRuleEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "resource_type")
     private ResourceType resourceType;
+
+    /**
+     * Flag indicating if the rule is active for scanning.
+     */
+    @Column(name = "is_active")
+    private Boolean isActive;
 }
