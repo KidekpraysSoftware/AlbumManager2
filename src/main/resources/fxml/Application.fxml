@@ -13,7 +13,7 @@
                     <fx:include source="ImportTab.fxml" />
             </content>
           </Tab>
-          <Tab text="Треки">
+          <Tab text="Проекты">
             <content>
                 <fx:include source="MainTab.fxml" />
             </content>
