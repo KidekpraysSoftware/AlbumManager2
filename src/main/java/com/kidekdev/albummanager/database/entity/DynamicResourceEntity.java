@@ -49,6 +49,7 @@ public class DynamicResourceEntity {
      * Only resources of this type are imported from the folder.
      */
     @Enumerated(EnumType.STRING)
+    @Column(name = "resource_type")
     private ResourceType resourceType;
 
     /**
