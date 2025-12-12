@@ -25,7 +25,7 @@ public class TagEntity {
     @Column(name = "name", unique = true, nullable = false)
     String name;
 
-    @Column(name = "group", nullable = false)
+    @Column(name = "tag_group", nullable = false)
     String group;
 
     @CreationTimestamp
