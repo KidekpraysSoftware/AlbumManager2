@@ -86,10 +86,10 @@ public class ResourceEntity {
     private OffsetDateTime fileCreationTime;
 
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(columnDefinition = "jsonb")
+    @Column(columnDefinition = "json")
     LinkedHashSet<UUID> tags;
 
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(columnDefinition = "jsonb")
+    @Column(columnDefinition = "json")
     LinkedHashSet<UUID> journal;
 }
