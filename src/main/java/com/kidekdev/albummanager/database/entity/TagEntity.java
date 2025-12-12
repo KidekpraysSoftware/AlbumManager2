@@ -25,15 +25,15 @@ public class TagEntity {
     @Column(name = "name", unique = true, nullable = false)
     String name;
 
-    @Column(name = "group", nullable = false)
-    String group;
+    @Column(name = "tag_group", nullable = false)
+    String tagGroup;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false)
     protected OffsetDateTime createdAt;
 
-    public TagEntity(String name, String group) {
+    public TagEntity(String name, String tagGroup) {
         this.name = name;
-        this.group = group;
+        this.tagGroup = tagGroup;
     }
 }

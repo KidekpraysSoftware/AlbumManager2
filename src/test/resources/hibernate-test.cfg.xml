@@ -10,5 +10,6 @@
         <property name="hibernate.show_sql">false</property>
 
         <mapping class="com.kidekdev.albummanager.database.entity.ResourceEntity"/>
+        <mapping class="com.kidekdev.albummanager.database.entity.TagEntity"/>
     </session-factory>
 </hibernate-configuration>
