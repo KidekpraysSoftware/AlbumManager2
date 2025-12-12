@@ -3,25 +3,26 @@ package com.kidekdev.albummanager.database.dao;
 import com.kidekdev.albummanager.common.OperationResult;
 import com.kidekdev.albummanager.database.dto.ResourceDto;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
 public interface ResourceDatabaseFacade {
 
-    OperationResult save(ResourceDto entity);
+    OperationResult save(ResourceDto dto);
 
-    ResourceDto getById(UUID entity);
+    ResourceDto getById(UUID id);
 
-    List<ResourceDto> getAllById(List<UUID> entityList);
+    List<ResourceDto> getAllById(Collection<UUID> ids);
 
-    OperationResult update(ResourceDto entity);
+    OperationResult update(ResourceDto dto);
 
-    OperationResult deactivate(UUID entity);
+    OperationResult deactivate(UUID id);
 
-    OperationResult delete(UUID entity);
+    OperationResult delete(UUID id);
 
     ResourceDto findByHash(String hash);
 
-    List<ResourceDto> findAllByHash(List<String> hashList);
+    List<ResourceDto> findAllByHash(Collection<String> hashList);
 
 }

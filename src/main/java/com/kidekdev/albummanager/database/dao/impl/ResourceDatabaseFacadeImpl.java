@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -53,14 +54,14 @@ public class ResourceDatabaseFacadeImpl implements ResourceDatabaseFacade {
     }
 
     @Override
-    public List<ResourceDto> getAllById(List<UUID> idList) {
-        if (idList == null || idList.isEmpty()) {
+    public List<ResourceDto> getAllById(Collection<UUID> ids) {
+        if (ids == null || ids.isEmpty()) {
             return Collections.emptyList();
         }
         try (Session session = sessionFactory.openSession()) {
             return session.createQuery(
                             "from ResourceEntity where id in :ids", ResourceEntity.class)
-                    .setParameter("ids", idList)
+                    .setParameter("ids", ids)
                     .list()
                     .stream()
                     .map(mapper::toDto)
@@ -140,7 +141,7 @@ public class ResourceDatabaseFacadeImpl implements ResourceDatabaseFacade {
     }
 
     @Override
-    public List<ResourceDto> findAllByHash(List<String> hashList) {
+    public List<ResourceDto> findAllByHash(Collection<String> hashList) {
         if (hashList == null || hashList.isEmpty()) {
             return Collections.emptyList();
         }

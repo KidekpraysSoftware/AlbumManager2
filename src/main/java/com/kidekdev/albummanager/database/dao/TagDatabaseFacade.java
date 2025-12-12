@@ -9,9 +9,9 @@ import java.util.UUID;
 
 public interface TagDatabaseFacade {
 
-    OperationResult saveTag(TagDto tag);
+    OperationResult saveTag(TagDto dto);
 
-    OperationResult saveAllTags(Collection<TagDto> tags);
+    OperationResult saveAllTags(Collection<TagDto> dtos);
 
     TagDto findById(UUID id);
     TagDto findByName(String tagName);
@@ -21,9 +21,9 @@ public interface TagDatabaseFacade {
 
     List<TagDto> findAllByGroup(String groupName);
 
-    OperationResult renameTag(String lastName, String newName);
+    OperationResult renameTag(String oldName, String newName);
 
-    OperationResult updateTag(TagDto tag);
+    OperationResult updateTag(TagDto dto);
     OperationResult deleteTagByName(String tagName); //тег так же удалить из всех ResourceEntity
     OperationResult deleteTagById(UUID id); //тег так же удалить из всех ResourceEntity
 }
