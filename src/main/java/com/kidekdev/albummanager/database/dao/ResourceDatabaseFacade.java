@@ -22,6 +22,6 @@ public interface ResourceDatabaseFacade {
 
     ResourceDto findByHash(String hash);
 
-    ResourceDto findAllByHash(List<String> hashList);
+    List<ResourceDto> findAllByHash(List<String> hashList);
 
 }
