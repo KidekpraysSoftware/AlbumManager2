@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
@@ -63,6 +64,8 @@ public class AlbumEntity {
     @Enumerated(EnumType.STRING)
     private WorkflowStatus status;
 
+    @CreationTimestamp
+    @Column(name = "created_at")
     private Long createdAt;
 
     /**

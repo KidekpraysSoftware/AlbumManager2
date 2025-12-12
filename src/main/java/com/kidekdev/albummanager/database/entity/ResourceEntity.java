@@ -28,6 +28,7 @@ public class ResourceEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(name = "resource_name")
     private String resourceName;
 
     private String authorName;
@@ -46,6 +47,7 @@ public class ResourceEntity {
     /**
      * Indicates that the resource was imported from a project folder scan.
      */
+    @Column(name = "is_dynamic")
     private Boolean isDynamic;
 
     /**
@@ -58,6 +60,7 @@ public class ResourceEntity {
      * Logical type of the media resource (track, image, midi, video).
      */
     @Enumerated(EnumType.STRING)
+    @Column(name = "resource_type")
     private ResourceType resourceType;
 
     /**
@@ -75,14 +78,14 @@ public class ResourceEntity {
     /**
      * Moment the resource was added to the system (epoch millis UTC).
      */
-    @Column(nullable = false)
+    @Column(name = "imported_at", nullable = false)
     @CreationTimestamp
     private OffsetDateTime importedAt;
 
     /**
      * Original creation time of the file (epoch millis UTC).
      */
-    @Column(nullable = false)
+    @Column(name = "file_creation_time", nullable = false)
     private OffsetDateTime fileCreationTime;
 
     @JdbcTypeCode(SqlTypes.JSON)

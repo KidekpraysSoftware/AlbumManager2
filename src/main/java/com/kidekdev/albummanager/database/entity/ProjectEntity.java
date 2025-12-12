@@ -4,6 +4,7 @@ import com.kidekdev.albummanager.database.type.WorkflowStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
@@ -47,6 +48,8 @@ public class ProjectEntity {
     /**
      * Creation timestamp (epoch millis UTC).
      */
+    @CreationTimestamp
+    @Column(name = "created_at")
     private Long createdAt;
 
     /**

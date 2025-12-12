@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  album-manager-db:
+    image: postgres:16
+    container_name: Album_Manager_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: postgres       # как в hibernate.cfg.xml
+      POSTGRES_USER: postgres     # как в hibernate.cfg.xml
+      POSTGRES_PASSWORD: "123"    # как в hibernate.cfg.xml
+    ports:
+      - "5432:5432"
+    volumes:
+      - album_manager_pgdata:/var/lib/postgresql/data
+
+volumes:
+  album_manager_pgdata:

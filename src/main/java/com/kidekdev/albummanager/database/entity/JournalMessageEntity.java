@@ -41,6 +41,8 @@ public class JournalMessageEntity {
     /**
      * Epoch millis of the entry creation.
      */
+    @CreationTimestamp
+    @Column(name = "created_at")
     private Long createdAt;
 
     /**

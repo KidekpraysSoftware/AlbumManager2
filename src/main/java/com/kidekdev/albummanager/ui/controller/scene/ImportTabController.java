@@ -90,7 +90,7 @@ public class ImportTabController {
                 .build();
 
         OperationResult result = importRuleDatabaseFacade.save(dto);
-        if (!result.success()) {
+        if (!result.isSuccess()) {
             AlertUtils.showErrorAlert(result.message());
             return;
         }
@@ -150,7 +150,7 @@ public class ImportTabController {
     private void handleDeleteRule(ImportRuleDto dto, HBox row) {
         if (dto.id() != null) {
             OperationResult result = importRuleDatabaseFacade.delete(dto.id());
-            if (!result.success()) {
+            if (!result.isSuccess()) {
                 AlertUtils.showErrorAlert(result.message());
                 return;
             }

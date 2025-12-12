@@ -39,6 +39,7 @@ public class ImportRuleEntity {
     /**
      * First time this rule was executed (epoch millis UTC).
      */
+    @Column(name = "imported_at")
     private Long importedAt;
 
     /**
