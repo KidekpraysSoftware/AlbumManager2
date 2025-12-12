@@ -8,7 +8,7 @@
    <children>
       <TabPane prefHeight="1080.0" prefWidth="1920.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab disable="true" text="Импорт">
+          <Tab text="Импорт">
             <content>
                     <fx:include source="ImportTab.fxml" />
             </content>
