@@ -10,9 +10,9 @@ public interface ResourceDatabaseFacade {
 
     OperationResult save(ResourceDto entity);
 
-    OperationResult getById(UUID entity);
+    ResourceDto getById(UUID entity);
 
-    OperationResult getAllById(List<UUID> entityList);
+    List<ResourceDto> getAllById(List<UUID> entityList);
 
     OperationResult update(ResourceDto entity);
 

@@ -62,6 +62,28 @@ class ResourceDatabaseFacadeImplTest {
     }
 
     @Test
+    void getByIdShouldReturnPersistedDto() {
+        ResourceDto dto = sampleDtoBuilder()
+                .hash("hash-get-1")
+                .build();
+        facade.save(dto);
+        ResourceDto persisted = facade.findByHash("hash-get-1");
+
+        ResourceDto loaded = facade.getById(persisted.id());
+
+        assertThat(loaded).isNotNull();
+        assertThat(loaded.id()).isEqualTo(persisted.id());
+        assertThat(loaded.hash()).isEqualTo("hash-get-1");
+    }
+
+    @Test
+    void getByIdShouldReturnNullWhenMissing() {
+        ResourceDto loaded = facade.getById(UUID.randomUUID());
+
+        assertThat(loaded).isNull();
+    }
+
+    @Test
     void updateShouldModifyExistingEntity() {
         ResourceDto original = sampleDtoBuilder()
                 .hash("hash-2")
@@ -138,6 +160,34 @@ class ResourceDatabaseFacadeImplTest {
         assertThat(results)
                 .extracting(ResourceDto::hash)
                 .containsExactlyInAnyOrder("hash-5", "hash-6");
+    }
+
+    @Test
+    void getAllByIdShouldReturnDtosForExistingIds() {
+        ResourceDto first = sampleDtoBuilder().hash("hash-all-1").build();
+        ResourceDto second = sampleDtoBuilder().hash("hash-all-2").build();
+
+        facade.save(first);
+        facade.save(second);
+
+        List<UUID> ids = facade.findAllByHash(List.of("hash-all-1", "hash-all-2"))
+                .stream()
+                .map(ResourceDto::id)
+                .toList();
+
+        List<ResourceDto> loaded = facade.getAllById(ids);
+
+        assertThat(loaded)
+                .hasSize(2)
+                .extracting(ResourceDto::hash)
+                .containsExactlyInAnyOrder("hash-all-1", "hash-all-2");
+    }
+
+    @Test
+    void getAllByIdShouldReturnEmptyListForEmptyInput() {
+        List<ResourceDto> loaded = facade.getAllById(List.of());
+
+        assertThat(loaded).isEmpty();
     }
 
     private ResourceDto.ResourceDtoBuilder sampleDtoBuilder() {

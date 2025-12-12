@@ -45,32 +45,26 @@ public class ResourceDatabaseFacadeImpl implements ResourceDatabaseFacade {
     }
 
     @Override
-    public OperationResult getById(UUID id) {
+    public ResourceDto getById(UUID id) {
         try (Session session = sessionFactory.openSession()) {
             ResourceEntity entity = session.get(ResourceEntity.class, id);
-            if (entity == null) {
-                return new OperationResult(false, "Resource not found for id %s".formatted(id));
-            }
-            return new OperationResult(true, "Resource loaded for id %s".formatted(id));
-        } catch (Exception ex) {
-            return new OperationResult(false, "Failed to load resource: " + ex.getMessage());
+            return entity == null ? null : mapper.toDto(entity);
         }
     }
 
     @Override
-    public OperationResult getAllById(List<UUID> idList) {
+    public List<ResourceDto> getAllById(List<UUID> idList) {
+        if (idList == null || idList.isEmpty()) {
+            return Collections.emptyList();
+        }
         try (Session session = sessionFactory.openSession()) {
-            List<ResourceEntity> results = session.createQuery(
-                    "from ResourceEntity where id in :ids", ResourceEntity.class)
+            return session.createQuery(
+                            "from ResourceEntity where id in :ids", ResourceEntity.class)
                     .setParameter("ids", idList)
-                    .list();
-            if (results.size() == idList.size()) {
-                return new OperationResult(true, "Loaded %d resources".formatted(results.size()));
-            }
-            return new OperationResult(false,
-                    "Loaded %d of %d resources".formatted(results.size(), idList.size()));
-        } catch (Exception ex) {
-            return new OperationResult(false, "Failed to load resources: " + ex.getMessage());
+                    .list()
+                    .stream()
+                    .map(mapper::toDto)
+                    .collect(Collectors.toList());
         }
     }
 
