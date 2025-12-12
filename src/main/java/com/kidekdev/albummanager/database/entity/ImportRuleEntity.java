@@ -11,7 +11,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 /**
@@ -39,8 +41,9 @@ public class ImportRuleEntity {
     /**
      * First time this rule was executed (epoch millis UTC).
      */
+    @CreationTimestamp
     @Column(name = "imported_at")
-    private Long importedAt;
+    private OffsetDateTime importedAt;
 
     /**
      * Resource type that should be imported from the path.

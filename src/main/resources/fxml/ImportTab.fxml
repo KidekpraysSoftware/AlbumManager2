@@ -8,12 +8,17 @@
 
 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1000.0" prefWidth="1920.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kidekdev.albummanager.ui.controller.scene.ImportTabController">
     <children>
-        <ScrollPane layoutX="14.0" layoutY="61.0" prefHeight="1139.0" prefWidth="1019.0" prefViewportHeight="600.0">
+        <ScrollPane layoutX="14.0" layoutY="61.0" prefHeight="892.0" prefViewportHeight="600.0" prefWidth="680.0">
             <content>
-                <VBox fx:id="importList" prefHeight="1119.0" prefWidth="1005.0" spacing="10.0" />
+                <VBox fx:id="importList" spacing="10.0" />
             </content>
         </ScrollPane>
         <Button fx:id="importButton" layoutX="14.0" layoutY="20.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="196.0" text="Создать автоимпорт" />
         <Text layoutX="228.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Список путей для автоимпорта ресурсов" />
+      <ScrollPane layoutX="839.0" layoutY="67.0" prefHeight="883.0" prefViewportHeight="600.0" prefWidth="720.0">
+         <content>
+            <VBox fx:id="newResourceVBox" spacing="10.0" />
+         </content>
+      </ScrollPane>
     </children>
 </AnchorPane>

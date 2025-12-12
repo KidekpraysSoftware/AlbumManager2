@@ -35,6 +35,9 @@ public class TrackRowModule extends AnchorPane implements PlayableTrack {
     private final int SLIDER_INDEX = 2;
     private final int TIME_LABEL_INDEX = 3;
 
+    public TrackRowModule(Path trackPath) {
+       this(trackPath, null, trackPath.getFileName().toString(), "Импорт режим");
+    }
 
     public TrackRowModule(Path trackPath, UUID trackId, String trackName, String authorName) {
         this.trackId = trackId;

@@ -34,7 +34,7 @@ public class AlbumManagerLiteApplication extends Application {
 
     private void initBackend(){
         EventDispatcher.scanAndRegisterHandlers("com.kidekdev.albummanager.ui");
-        createResource();
+//        createResource();
 //        Path databaseRoot = Path.of("C:/Users/Kidek/Desktop/AMMetadata");
 //        DatabaseHolder.database = new DatabaseLoader().loadDatabase(databaseRoot);
 //        DatabaseHolder.databaseFacade = new DatabaseFacadeImpl(DatabaseHolder.database);
@@ -51,7 +51,7 @@ public class AlbumManagerLiteApplication extends Application {
             ResourceEntity entity = new ResourceEntity();
             entity.setIsActive(true);
             entity.setPath("/demo/path.wav");
-            entity.setHash("demo-hash");
+            entity.setHash("64dc318babce905a4d8faf95017ced15dec6cb60021d5104848ca26f9f11957b");
             entity.setResourceType(ResourceType.TRACK);
             entity.setExtension(ResourceExtension.WAV);
             entity.setDescription("Demo resource created in example");
