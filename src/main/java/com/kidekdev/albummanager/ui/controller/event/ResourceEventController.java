@@ -81,6 +81,6 @@ public class ResourceEventController {
                 .fileCreationTime(creationTime)
                 .tags(resourceTags)
                 .build();
-        DatabaseHolder.resource.save(resourceDto, addResourceResult.selectedTags());
+        DatabaseHolder.resource.save(resourceDto);
     }
 }

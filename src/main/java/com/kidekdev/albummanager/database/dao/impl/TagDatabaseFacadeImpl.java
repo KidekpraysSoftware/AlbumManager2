@@ -12,13 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class TagDatabaseFacadeImpl implements TagDatabaseFacade {
@@ -61,6 +55,17 @@ public class TagDatabaseFacadeImpl implements TagDatabaseFacade {
             rollbackQuietly(transaction);
             return new OperationResult(false, "Failed to save tag group: " + ex.getMessage());
         }
+    }
+
+    @Override
+    public Set<TagDto> mergeNewTags(Map<UUID, List<String>> tags) {
+       //При импорте ресурса выбрали теги. UUID - id категории, List<String> - ее теги
+        //при импорте могли создасться новые теги.
+        // Надо смерджить новые теги с уже существующиими и вернуть их в виде списка с
+        //пример: В базе есть тег Пианино. С фронта прилетели 2 тега - Пианино и Скрипка.
+        //загружаем все теги. Видим что Скрипка не существует, сохраняем этот тег в бд.
+        //возвращаем назад готовые дто с id для Скрипа и Пианино
+        return null;
     }
 
     @Override

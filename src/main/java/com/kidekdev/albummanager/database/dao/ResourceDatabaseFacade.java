@@ -28,5 +28,5 @@ public interface ResourceDatabaseFacade {
 
     OperationResult updateResourceOrdering(List<UUID> orderedIds); //Use OrderingUtils.updateSourceOrdering()
 
-    OperationResult isExist(String resourceFileHash); //если true, то написать в message "Такой ресурс уже есть: <Автор - Название>"
+    OperationResult isExist(String resourceFileHash);
 }

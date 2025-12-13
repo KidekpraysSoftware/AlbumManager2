@@ -61,7 +61,7 @@ public class MainTabController {
                 boolean supported = Arrays.stream(ResourceExtension.values())
                         .anyMatch(ext -> name.endsWith("." + ext.name().toLowerCase()));
                 if (supported) {
-                    EventDispatcher.dispatch(new AddNewResourceEvent(path));
+                    EventDispatcher.dispatch(new AddNewResourceEvent(path, false));
                     event.setDropCompleted(true);
                 } else {
                     event.setDropCompleted(false);

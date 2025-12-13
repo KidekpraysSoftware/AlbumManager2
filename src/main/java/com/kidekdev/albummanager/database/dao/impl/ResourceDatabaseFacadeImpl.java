@@ -180,6 +180,12 @@ public class ResourceDatabaseFacadeImpl implements ResourceDatabaseFacade {
         }
     }
 
+    @Override
+    public OperationResult isExist(String resourceFileHash) {
+        //если true, то написать в message "Такой ресурс уже есть: <Автор - Название>"
+        return null;
+    }
+
     private void rollbackQuietly(Transaction transaction) {
         if (transaction != null) {
             try {
