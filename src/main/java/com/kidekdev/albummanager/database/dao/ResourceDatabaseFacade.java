@@ -25,4 +25,6 @@ public interface ResourceDatabaseFacade {
 
     List<ResourceDto> findAllByHash(Collection<String> hashList);
 
+    OperationResult updateResourceOrdering(List<UUID> orderedIds); //Use OrderingUtils.updateSourceOrdering()
+
 }

@@ -158,6 +158,11 @@ public class ResourceDatabaseFacadeImpl implements ResourceDatabaseFacade {
         }
     }
 
+    @Override
+    public OperationResult updateResourceOrdering(List<UUID> orderedIds) {
+        return null;
+    }
+
     private void rollbackQuietly(Transaction transaction) {
         if (transaction != null) {
             try {
