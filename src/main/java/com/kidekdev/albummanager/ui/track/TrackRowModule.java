@@ -1,10 +1,16 @@
 package com.kidekdev.albummanager.ui.track;
 
 import com.kidekdev.albummanager.ui.context.ActiveTrackHolder;
+import com.kidekdev.albummanager.ui.dispatcher.EventDispatcher;
+import com.kidekdev.albummanager.ui.dispatcher.event.AddNewResourceEvent;
+import com.kidekdev.albummanager.ui.dispatcher.event.IgnoreNewResourceEvent;
 import com.kidekdev.albummanager.ui.utils.DurationFormatter;
+import com.kidekdev.albummanager.ui.utils.FileUtils;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import lombok.Getter;
@@ -36,10 +42,10 @@ public class TrackRowModule extends AnchorPane implements PlayableTrack {
     private final int TIME_LABEL_INDEX = 3;
 
     public TrackRowModule(Path trackPath) {
-       this(trackPath, null, trackPath.getFileName().toString(), "Импорт режим");
+        this(trackPath, ResourceLocation.IMPORT_LIST, null, trackPath.getFileName().toString(), "Импорт режим");
     }
 
-    public TrackRowModule(Path trackPath, UUID trackId, String trackName, String authorName) {
+    public TrackRowModule(Path trackPath, ResourceLocation location, UUID trackId, String trackName, String authorName) {
         this.trackId = trackId;
         this.trackPath = trackPath;
         this.media = new Media(trackPath.toUri().toString());
@@ -50,6 +56,26 @@ public class TrackRowModule extends AnchorPane implements PlayableTrack {
         getChildren().addAll(buttonStackPane, trackInfoBox, /*slider индекс [2]*/ timeLabel, markerHBox);
         setupRoot();
         initActions();
+        initPopupMenu(trackPath, location);
+    }
+
+    private void initPopupMenu(Path trackPath, ResourceLocation location) {
+        MenuItem addTrack = new MenuItem("Добавить трек");
+        MenuItem ignoreTrack = new MenuItem("Игнорировать трек");
+        MenuItem openTrack = new MenuItem("Найти в проводнике");
+        addTrack.setOnAction(action -> EventDispatcher.dispatch(new AddNewResourceEvent(trackPath)));
+        ignoreTrack.setOnAction(action -> EventDispatcher.dispatch(new IgnoreNewResourceEvent(trackPath)));
+        openTrack.setOnAction(action -> FileUtils.revealFileInExplorer(trackPath));
+
+        ContextMenu contextMenu = new ContextMenu(
+                addTrack,
+                ignoreTrack,
+                openTrack
+        );
+
+        setOnContextMenuRequested(event ->
+                contextMenu.show(this, event.getScreenX(), event.getScreenY())
+        );
     }
 
     private void setupRoot() {

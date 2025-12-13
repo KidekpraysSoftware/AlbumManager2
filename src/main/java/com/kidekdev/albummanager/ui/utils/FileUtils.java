@@ -1,5 +1,6 @@
 package com.kidekdev.albummanager.ui.utils;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -40,5 +41,16 @@ public final class FileUtils {
         }
         String ext = name.substring(dotIndex + 1);
         return extensions.contains(ext);
+    }
+
+    public static void revealFileInExplorer(Path path) {
+        if (path == null || !Files.exists(path)) return;
+
+        try {
+            String command = "explorer.exe /select,\"" + path.toAbsolutePath() + "\"";
+            Runtime.getRuntime().exec(command);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

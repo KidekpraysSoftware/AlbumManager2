@@ -8,28 +8,33 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "tag")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TagEntity {
+@Table(name = "tag_group")
+public class TagGroupEntity {
 
     @Id
     @GeneratedValue
-    protected UUID id;
+    @Column(name = "id")
+    private UUID id;
 
     @Column(name = "name", unique = true, nullable = false)
-    String name;
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "group_id")
-    private TagGroupEntity group;
+    private String name;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false)
-    protected OffsetDateTime createdAt;
+    private OffsetDateTime createdAt;
+
+    @Column(nullable = false, unique = true)
+    private int ordering;
+
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
+    private List<TagEntity> tags = new ArrayList<>();
 }

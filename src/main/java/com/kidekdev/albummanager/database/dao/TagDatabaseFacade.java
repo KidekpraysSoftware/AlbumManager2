@@ -5,6 +5,7 @@ import com.kidekdev.albummanager.database.dto.TagDto;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public interface TagDatabaseFacade {
@@ -16,6 +17,8 @@ public interface TagDatabaseFacade {
     TagDto findById(UUID id);
     TagDto findByName(String tagName);
     List<TagDto> findAllTags();
+
+    Map<String, List<TagDto>> findAllGroups();
 
     List<TagDto> findAllByNames(Collection<String> names);
 

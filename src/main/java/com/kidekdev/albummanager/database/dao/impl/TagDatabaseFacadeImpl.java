@@ -11,11 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class TagDatabaseFacadeImpl implements TagDatabaseFacade {
@@ -96,6 +92,11 @@ public class TagDatabaseFacadeImpl implements TagDatabaseFacade {
                     .map(mapper::toDto)
                     .collect(Collectors.toList());
         }
+    }
+
+    @Override
+    public Map<String, List<TagDto>> findAllGroups() {
+        return findAllTags().stream().collect(Collectors.groupingBy(TagDto::tagGroup));
     }
 
     @Override
