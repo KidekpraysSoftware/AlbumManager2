@@ -59,13 +59,74 @@ public class TagDatabaseFacadeImpl implements TagDatabaseFacade {
 
     @Override
     public Set<TagDto> mergeNewTags(Map<UUID, List<String>> tags) {
-       //При импорте ресурса выбрали теги. UUID - id категории, List<String> - ее теги
-        //при импорте могли создасться новые теги.
-        // Надо смерджить новые теги с уже существующиими и вернуть их в виде списка с
-        //пример: В базе есть тег Пианино. С фронта прилетели 2 тега - Пианино и Скрипка.
-        //загружаем все теги. Видим что Скрипка не существует, сохраняем этот тег в бд.
-        //возвращаем назад готовые дто с id для Скрипа и Пианино
-        return null;
+        if (tags == null || tags.isEmpty()) {
+            return Collections.emptySet();
+        }
+
+        Transaction transaction = null;
+        try (Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
+
+            Set<UUID> groupIds = tags.keySet();
+            Map<UUID, TagGroupEntity> groups = loadGroups(session, groupIds);
+
+            Set<String> requestedNames = tags.values().stream()
+                    .filter(Objects::nonNull)
+                    .flatMap(Collection::stream)
+                    .filter(Objects::nonNull)
+                    .map(String::trim)
+                    .filter(name -> !name.isBlank())
+                    .collect(Collectors.toSet());
+
+            Map<String, TagEntity> existingTags = requestedNames.isEmpty()
+                    ? new HashMap<>()
+                    : session.createQuery("from TagEntity where name in :names", TagEntity.class)
+                    .setParameter("names", requestedNames)
+                    .list()
+                    .stream()
+                    .collect(Collectors.toMap(TagEntity::getName, t -> t));
+
+            Set<TagEntity> resolvedEntities = new HashSet<>();
+
+            for (Map.Entry<UUID, List<String>> entry : tags.entrySet()) {
+                UUID groupId = entry.getKey();
+                TagGroupEntity group = groups.get(groupId);
+                if (group == null) {
+                    throw new IllegalArgumentException("Tag group not found: " + groupId);
+                }
+
+                List<String> tagNames = entry.getValue();
+                if (tagNames == null || tagNames.isEmpty()) {
+                    continue;
+                }
+
+                for (String tagName : tagNames) {
+                    if (tagName == null || tagName.isBlank()) {
+                        continue;
+                    }
+
+                    TagEntity entity = existingTags.get(tagName);
+                    if (entity == null) {
+                        entity = new TagEntity();
+                        entity.setName(tagName);
+                        entity.setGroup(group);
+                        session.persist(entity);
+                        existingTags.put(tagName, entity);
+                    }
+
+                    resolvedEntities.add(entity);
+                }
+            }
+
+            session.flush();
+            transaction.commit();
+            return resolvedEntities.stream()
+                    .map(this::toDto)
+                    .collect(Collectors.toSet());
+        } catch (Exception ex) {
+            rollbackQuietly(transaction);
+            throw new RuntimeException("Failed to merge tags", ex);
+        }
     }
 
     @Override
@@ -350,6 +411,18 @@ public class TagDatabaseFacadeImpl implements TagDatabaseFacade {
         }
 
         session.merge(existing);
+    }
+
+    private Map<UUID, TagGroupEntity> loadGroups(Session session, Set<UUID> groupIds) {
+        if (groupIds == null || groupIds.isEmpty()) {
+            return Collections.emptyMap();
+        }
+
+        return session.createQuery("from TagGroupEntity where id in :ids", TagGroupEntity.class)
+                .setParameter("ids", groupIds)
+                .list()
+                .stream()
+                .collect(Collectors.toMap(TagGroupEntity::getId, g -> g));
     }
 
     private int resolveNextOrdering(Session session) {
