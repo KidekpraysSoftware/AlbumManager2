@@ -11,5 +11,6 @@
 
         <mapping class="com.kidekdev.albummanager.database.entity.ResourceEntity"/>
         <mapping class="com.kidekdev.albummanager.database.entity.TagEntity"/>
+        <mapping class="com.kidekdev.albummanager.database.entity.TagGroupEntity"/>
     </session-factory>
 </hibernate-configuration>

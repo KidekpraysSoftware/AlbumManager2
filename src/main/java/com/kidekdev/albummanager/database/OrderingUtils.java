@@ -19,9 +19,7 @@ public class OrderingUtils {
         Map<UUID, TagGroupEntity> entityMap = entities.stream()
                 .collect(Collectors.toMap(TagGroupEntity::getId, e -> e));
 
-        int size = orderedIds.size();
-
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < orderedIds.size(); i++) {
             UUID id = orderedIds.get(i);
             TagGroupEntity entity = entityMap.get(id);
 
@@ -29,8 +27,8 @@ public class OrderingUtils {
                 throw new IllegalArgumentException("TagGroup not found: " + id);
             }
 
-            // первый в UI → самый маленький ordering
-            entity.setOrdering(-(size - i));
+            // ordering инвертирован: первый элемент — 0, далее -1, -2...
+            entity.setOrdering(-i);
         }
     }
 
