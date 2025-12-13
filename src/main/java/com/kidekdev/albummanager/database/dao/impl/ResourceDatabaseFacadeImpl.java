@@ -36,6 +36,7 @@ public class ResourceDatabaseFacadeImpl implements ResourceDatabaseFacade {
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
             ResourceEntity entity = mapper.toEntity(dto);
+            entity.setOrdering(resolveNextOrdering(session));
             session.persist(entity);
             transaction.commit();
             return new OperationResult(true, "Resource saved with id %s".formatted(entity.getId()));
@@ -82,6 +83,7 @@ public class ResourceDatabaseFacadeImpl implements ResourceDatabaseFacade {
                 return new OperationResult(false, "Resource not found for id %s".formatted(dto.id()));
             }
             ResourceEntity toUpdate = mapper.toEntity(dto);
+            toUpdate.setOrdering(existing.getOrdering());
             session.merge(toUpdate);
             transaction.commit();
             return new OperationResult(true, "Resource updated for id %s".formatted(dto.id()));
@@ -164,5 +166,12 @@ public class ResourceDatabaseFacadeImpl implements ResourceDatabaseFacade {
                 // ignored
             }
         }
+    }
+
+    private int resolveNextOrdering(Session session) {
+        Integer minOrdering = session.createQuery("select min(ordering) from ResourceEntity", Integer.class)
+                .uniqueResultOptional()
+                .orElse(null);
+        return minOrdering == null ? 0 : minOrdering - 1;
     }
 }
