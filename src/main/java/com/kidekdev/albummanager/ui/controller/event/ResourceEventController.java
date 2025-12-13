@@ -47,6 +47,7 @@ public class ResourceEventController {
         OperationResult existCheck = DatabaseHolder.resource.isExist(resourceFileHash);
         if (!existCheck.isSuccess()) {
             showErrorAlert(existCheck.message());
+            return;
         }
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/EditResourceDialog.fxml"));
         DialogPane dialogPane = loader.load();
