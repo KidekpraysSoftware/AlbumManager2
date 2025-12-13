@@ -8,14 +8,13 @@ import com.kidekdev.albummanager.database.dao.TagDatabaseFacade;
 import com.kidekdev.albummanager.database.dao.impl.DynamicResourceDatabaseFacadeImpl;
 import com.kidekdev.albummanager.database.dao.impl.ImportRuleDatabaseFacadeImpl;
 import com.kidekdev.albummanager.database.dao.impl.ResourceDatabaseFacadeImpl;
-import com.kidekdev.albummanager.database.dao.impl.TagDatabaseFacadeImpl;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class DatabaseHolder {
 
   public static ResourceDatabaseFacade resource = new ResourceDatabaseFacadeImpl();
-  public static TagDatabaseFacade tag = new TagDatabaseFacadeImpl();
+  public static TagDatabaseFacade tag;
   public static ImportRuleDatabaseFacade importRule = new ImportRuleDatabaseFacadeImpl();
   public static DynamicResourceDatabaseFacade dynamicResource = new DynamicResourceDatabaseFacadeImpl();
 }

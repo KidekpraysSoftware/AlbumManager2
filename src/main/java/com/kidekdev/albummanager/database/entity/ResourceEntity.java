@@ -75,6 +75,9 @@ public class ResourceEntity {
     @Column(length = 2048)
     private String description;
 
+    @Column(nullable = false, unique = true)
+    private int ordering;
+
     /**
      * Moment the resource was added to the system (epoch millis UTC).
      */

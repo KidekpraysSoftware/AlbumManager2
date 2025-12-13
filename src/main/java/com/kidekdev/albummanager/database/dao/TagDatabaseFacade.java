@@ -2,6 +2,7 @@ package com.kidekdev.albummanager.database.dao;
 
 import com.kidekdev.albummanager.common.OperationResult;
 import com.kidekdev.albummanager.database.dto.TagDto;
+import com.kidekdev.albummanager.database.dto.TagGroupDto;
 
 import java.util.Collection;
 import java.util.List;
@@ -10,23 +11,35 @@ import java.util.UUID;
 
 public interface TagDatabaseFacade {
 
-    OperationResult saveTag(TagDto dto);
+    // ===== CREATE / UPDATE =====
+    OperationResult saveGroup(TagGroupDto dto);
 
-    OperationResult saveAllTags(Collection<TagDto> dtos);
 
-    TagDto findById(UUID id);
+    // ===== READ: single =====
+    TagDto findTagById(UUID id);
+    TagGroupDto findGroupById(UUID id);
+
     TagDto findByName(String tagName);
-    List<TagDto> findAllTags();
 
-    Map<String, List<TagDto>> findAllGroups();
+    // ===== READ: collections =====
+    List<TagDto> findAllTags();
+    List<TagGroupDto> findAllGroups();
 
     List<TagDto> findAllByNames(Collection<String> names);
+    List<TagDto> findAllByGroupName(String groupName);
 
-    List<TagDto> findAllByGroup(String groupName);
-
+    // ===== UPDATE =====
     OperationResult renameTag(String oldName, String newName);
+    OperationResult renameGroup(String oldName, String newName);
+    OperationResult updateGroups(List<TagGroupDto> groups);
+    OperationResult updateGroup(TagGroupDto group);
 
-    OperationResult updateTag(TagDto dto);
-    OperationResult deleteTagByName(String tagName); //тег так же удалить из всех ResourceEntity
-    OperationResult deleteTagById(UUID id); //тег так же удалить из всех ResourceEntity
+    OperationResult updateGroupOrdering(List<UUID> orderedIds); //Use OrderingUtils.updateTagGroupOrdering()
+
+    // ===== DELETE =====
+    OperationResult deleteTagById(UUID id);
+    OperationResult deleteTagByName(String name);
+
+    OperationResult deleteGroupById(UUID id);
+    OperationResult deleteGroupByName(String name);
 }
