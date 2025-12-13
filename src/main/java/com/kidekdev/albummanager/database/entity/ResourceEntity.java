@@ -91,9 +91,11 @@ public class ResourceEntity {
     @Column(name = "file_creation_time", nullable = false)
     private OffsetDateTime fileCreationTime;
 
-    @JdbcTypeCode(SqlTypes.JSON)
-    @Column(columnDefinition = "json")
-    LinkedHashSet<UUID> tags;
+    @ManyToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+    @JoinTable(name = "resource_tag_link",
+            joinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    Set<TagEntity> tags = new HashSet<>();
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "json")

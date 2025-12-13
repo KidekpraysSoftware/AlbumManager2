@@ -6,6 +6,7 @@ import lombok.Builder;
 
 import java.time.OffsetDateTime;
 import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -25,7 +26,7 @@ public record ResourceDto(
         String description,
         OffsetDateTime importedAt,
         OffsetDateTime fileCreationTime,
-        LinkedHashSet<UUID> tags,
+        Set<TagDto> tags,
         LinkedHashSet<UUID> journal
 ) {
 }

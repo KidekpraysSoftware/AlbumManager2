@@ -56,7 +56,6 @@ public class AlbumManagerLiteApplication extends Application {
             entity.setExtension(ResourceExtension.WAV);
             entity.setDescription("Demo resource created in example");
             entity.setFileCreationTime(OffsetDateTime.now());
-            entity.setTags(new LinkedHashSet<>(List.of(UUID.randomUUID(),UUID.randomUUID())));
             session.persist(entity);
 
             transaction.commit();
