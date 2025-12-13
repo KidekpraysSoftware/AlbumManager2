@@ -4,15 +4,13 @@ import com.kidekdev.albummanager.common.OperationResult;
 import com.kidekdev.albummanager.database.dto.TagDto;
 import com.kidekdev.albummanager.database.dto.TagGroupDto;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public interface TagDatabaseFacade {
 
     // ===== CREATE / UPDATE =====
     OperationResult saveGroup(TagGroupDto dto);
+    Set<TagDto> mergeNewTags(Map<UUID, List<String>> tags);
 
 
     // ===== READ: single =====

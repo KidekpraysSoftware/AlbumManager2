@@ -65,7 +65,7 @@ public class ImportTabController {
         Map<ImportRuleDto, List<Path>> allFounded = new HashMap<>();
         foundedRules.forEach(dto -> {
             Path rootPath = Path.of(dto.path());
-            Set<String> extensions = ResourceType.getExtentions(dto.resourceType());
+            Set<String> extensions = ResourceType.getExtensions(dto.resourceType());
             List<Path> founded = FileUtils.findFilesByExtensions(rootPath, extensions);
             allFounded.put(dto, founded);
         });

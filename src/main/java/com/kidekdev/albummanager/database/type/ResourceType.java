@@ -8,7 +8,7 @@ public enum ResourceType {
     MIDI,
     VIDEO;
 
-    public static Set<String> getExtentions(ResourceType type) {
+    public static Set<String> getExtensions(ResourceType type) {
         if (type == null) {
             throw new RuntimeException("Не указан тип ресурса");
         }
@@ -38,6 +38,14 @@ public enum ResourceType {
         };
     }
 
+    public static ResourceType resolveType(ResourceExtension ext) {
+        return switch (ext) {
+            case WAV, MP3, FLAC, AIFF, OGG -> ResourceType.TRACK;
+            case PNG, JPEG, JPG           -> ResourceType.IMAGE;
+            case MID, MIDI                -> ResourceType.MIDI;
+            case MP4, MOV, MKV            -> ResourceType.VIDEO;
+        };
+    }
 }
 
 

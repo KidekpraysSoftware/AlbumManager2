@@ -7,6 +7,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -81,6 +84,39 @@ public final class FileUtils {
             Runtime.getRuntime().exec(command);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public static OffsetDateTime getEarliestFileTime(File file) {
+        OffsetDateTime creationTime = null;
+        OffsetDateTime lastModifiedTime = null;
+
+        try {
+            Path path = file.toPath();
+            BasicFileAttributes attr = Files.readAttributes(path, BasicFileAttributes.class);
+            creationTime = attr.creationTime() != null ?
+                    attr.creationTime().toInstant().atOffset(ZoneOffset.UTC) : null;
+        } catch (Exception e) {
+            // creationTime остаётся null
+        }
+
+        try {
+            Path path = file.toPath();
+            BasicFileAttributes attr = Files.readAttributes(path, BasicFileAttributes.class);
+            lastModifiedTime = attr.lastModifiedTime() != null ?
+                    attr.lastModifiedTime().toInstant().atOffset(ZoneOffset.UTC) : null;
+        } catch (Exception e) {
+            // lastModifiedTime остаётся null
+        }
+
+        if (creationTime != null && lastModifiedTime != null) {
+            return creationTime.isBefore(lastModifiedTime) ? creationTime : lastModifiedTime;
+        } else if (creationTime != null) {
+            return creationTime;
+        } else if (lastModifiedTime != null) {
+            return lastModifiedTime;
+        } else {
+            return OffsetDateTime.now();
         }
     }
 }
