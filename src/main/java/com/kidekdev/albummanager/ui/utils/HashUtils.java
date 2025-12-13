@@ -31,7 +31,7 @@ public class HashUtils {
         return resourceCache;
     }
 
-    private static String sha256(Path path) {
+    public static String sha256(Path path) {
         try (InputStream is = Files.newInputStream(path)) {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] buffer = new byte[8192];

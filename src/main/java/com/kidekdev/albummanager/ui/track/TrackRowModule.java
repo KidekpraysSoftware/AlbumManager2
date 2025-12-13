@@ -94,7 +94,11 @@ public class TrackRowModule extends AnchorPane implements PlayableTrack {
         pauseButton.setOnAction(e -> {
             pause();
         });
-        this.setOnMousePressed(e -> play());
+        this.setOnMousePressed(e -> {
+            if (e.isPrimaryButtonDown()) {
+                play();
+            }
+        });
     }
 
     @Override
