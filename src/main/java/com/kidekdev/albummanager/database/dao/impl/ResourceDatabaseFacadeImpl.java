@@ -182,8 +182,18 @@ public class ResourceDatabaseFacadeImpl implements ResourceDatabaseFacade {
 
     @Override
     public OperationResult isExist(String resourceFileHash) {
-        //если true, то написать в message "Такой ресурс уже есть: <Автор - Название>"
-        return null;
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery("from ResourceEntity where hash = :hash", ResourceEntity.class)
+                    .setParameter("hash", resourceFileHash)
+                    .uniqueResultOptional()
+                    .map(entity -> {
+                        String author = Optional.ofNullable(entity.getAuthorName()).orElse("");
+                        String name = Optional.ofNullable(entity.getResourceName()).orElse("");
+                        String message = "Такой ресурс уже есть: %s - %s".formatted(author, name).trim();
+                        return new OperationResult(false, message);
+                    })
+                    .orElseGet(() -> new OperationResult(true, ""));
+        }
     }
 
     private void rollbackQuietly(Transaction transaction) {
