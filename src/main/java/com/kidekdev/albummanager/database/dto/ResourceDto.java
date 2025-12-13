@@ -24,6 +24,7 @@ public record ResourceDto(
         ResourceType resourceType,
         ResourceExtension extension,
         String description,
+        int ordering,
         OffsetDateTime importedAt,
         OffsetDateTime fileCreationTime,
         Set<TagDto> tags,

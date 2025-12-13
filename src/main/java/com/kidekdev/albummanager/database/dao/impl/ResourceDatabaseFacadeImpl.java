@@ -1,19 +1,19 @@
 package com.kidekdev.albummanager.database.dao.impl;
 
 import com.kidekdev.albummanager.common.OperationResult;
+import com.kidekdev.albummanager.database.OrderingUtils;
 import com.kidekdev.albummanager.database.HibernateUtil;
 import com.kidekdev.albummanager.database.dao.ResourceDatabaseFacade;
 import com.kidekdev.albummanager.database.dto.ResourceDto;
+import com.kidekdev.albummanager.database.dto.TagDto;
 import com.kidekdev.albummanager.database.entity.ResourceEntity;
+import com.kidekdev.albummanager.database.entity.TagEntity;
 import com.kidekdev.albummanager.database.mapper.ResourceMapper;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ResourceDatabaseFacadeImpl implements ResourceDatabaseFacade {
@@ -37,6 +37,7 @@ public class ResourceDatabaseFacadeImpl implements ResourceDatabaseFacade {
             transaction = session.beginTransaction();
             ResourceEntity entity = mapper.toEntity(dto);
             entity.setOrdering(resolveNextOrdering(session));
+            entity.setTags(resolveTags(session, dto.tags()));
             session.persist(entity);
             transaction.commit();
             return new OperationResult(true, "Resource saved with id %s".formatted(entity.getId()));
@@ -84,6 +85,7 @@ public class ResourceDatabaseFacadeImpl implements ResourceDatabaseFacade {
             }
             ResourceEntity toUpdate = mapper.toEntity(dto);
             toUpdate.setOrdering(existing.getOrdering());
+            toUpdate.setTags(resolveTags(session, dto.tags()));
             session.merge(toUpdate);
             transaction.commit();
             return new OperationResult(true, "Resource updated for id %s".formatted(dto.id()));
@@ -160,7 +162,22 @@ public class ResourceDatabaseFacadeImpl implements ResourceDatabaseFacade {
 
     @Override
     public OperationResult updateResourceOrdering(List<UUID> orderedIds) {
-        return null;
+        if (orderedIds == null || orderedIds.isEmpty()) {
+            return new OperationResult(false, "No ordered ids provided");
+        }
+
+        Transaction transaction = null;
+        try (Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
+            List<ResourceEntity> entities = session.createQuery("from ResourceEntity", ResourceEntity.class)
+                    .list();
+            OrderingUtils.updateSourceOrdering(entities, orderedIds);
+            transaction.commit();
+            return new OperationResult(true, "Ordering updated");
+        } catch (Exception ex) {
+            rollbackQuietly(transaction);
+            return new OperationResult(false, "Failed to update ordering: " + ex.getMessage());
+        }
     }
 
     private void rollbackQuietly(Transaction transaction) {
@@ -178,5 +195,63 @@ public class ResourceDatabaseFacadeImpl implements ResourceDatabaseFacade {
                 .uniqueResultOptional()
                 .orElse(null);
         return minOrdering == null ? 0 : minOrdering - 1;
+    }
+
+    private Set<TagEntity> resolveTags(Session session, Set<TagDto> tags) {
+        if (tags == null || tags.isEmpty()) {
+            return Collections.emptySet();
+        }
+
+        Map<UUID, TagEntity> tagsById = loadTagsById(session, tags);
+        Map<String, TagEntity> tagsByName = loadTagsByName(session, tags);
+
+        Set<TagEntity> resolved = new HashSet<>();
+        for (TagDto tagDto : tags) {
+            TagEntity entity = Optional.ofNullable(tagDto.id())
+                    .map(tagsById::get)
+                    .orElseGet(() -> tagsByName.get(tagDto.name()));
+
+            if (entity == null) {
+                throw new IllegalArgumentException("Tag not found: " + (tagDto.id() != null ? tagDto.id() : tagDto.name()));
+            }
+
+            resolved.add(entity);
+        }
+
+        return resolved;
+    }
+
+    private Map<UUID, TagEntity> loadTagsById(Session session, Set<TagDto> tags) {
+        List<UUID> ids = tags.stream()
+                .map(TagDto::id)
+                .filter(Objects::nonNull)
+                .toList();
+
+        if (ids.isEmpty()) {
+            return Collections.emptyMap();
+        }
+
+        return session.createQuery("from TagEntity where id in :ids", TagEntity.class)
+                .setParameter("ids", ids)
+                .list()
+                .stream()
+                .collect(Collectors.toMap(TagEntity::getId, e -> e));
+    }
+
+    private Map<String, TagEntity> loadTagsByName(Session session, Set<TagDto> tags) {
+        List<String> names = tags.stream()
+                .map(TagDto::name)
+                .filter(Objects::nonNull)
+                .toList();
+
+        if (names.isEmpty()) {
+            return Collections.emptyMap();
+        }
+
+        return session.createQuery("from TagEntity where name in :names", TagEntity.class)
+                .setParameter("names", names)
+                .list()
+                .stream()
+                .collect(Collectors.toMap(TagEntity::getName, e -> e));
     }
 }

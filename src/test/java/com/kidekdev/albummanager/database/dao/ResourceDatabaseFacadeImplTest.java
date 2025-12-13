@@ -4,6 +4,8 @@ import com.kidekdev.albummanager.common.OperationResult;
 import com.kidekdev.albummanager.database.dao.impl.ResourceDatabaseFacadeImpl;
 import com.kidekdev.albummanager.database.dto.ResourceDto;
 import com.kidekdev.albummanager.database.entity.ResourceEntity;
+import com.kidekdev.albummanager.database.entity.TagEntity;
+import com.kidekdev.albummanager.database.entity.TagGroupEntity;
 import com.kidekdev.albummanager.database.mapper.ResourceMapper;
 import com.kidekdev.albummanager.database.type.ResourceExtension;
 import com.kidekdev.albummanager.database.type.ResourceType;
@@ -30,6 +32,8 @@ class ResourceDatabaseFacadeImplTest {
         sessionFactory = new Configuration()
                 .configure("hibernate-test.cfg.xml")
                 .addAnnotatedClass(ResourceEntity.class)
+                .addAnnotatedClass(TagEntity.class)
+                .addAnnotatedClass(TagGroupEntity.class)
                 .buildSessionFactory();
         facade = new ResourceDatabaseFacadeImpl(sessionFactory, ResourceMapper.INSTANCE);
     }
