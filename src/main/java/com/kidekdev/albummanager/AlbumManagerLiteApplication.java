@@ -1,6 +1,7 @@
 package com.kidekdev.albummanager;
 
 import com.kidekdev.albummanager.database.HibernateUtil;
+import com.kidekdev.albummanager.database.TestDataSeeder;
 import com.kidekdev.albummanager.database.entity.ResourceEntity;
 import com.kidekdev.albummanager.database.type.ResourceExtension;
 import com.kidekdev.albummanager.database.type.ResourceType;
@@ -25,6 +26,7 @@ public class AlbumManagerLiteApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException, URISyntaxException {
         initBackend();
+        new TestDataSeeder().fillTags();
         FXMLLoader fxmlLoader = new FXMLLoader(AlbumManagerLiteApplication.class.getResource("/fxml/Application.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
         stage.setTitle("Album manager lite");
