@@ -157,6 +157,11 @@ public class TagDatabaseFacadeImpl implements TagDatabaseFacade {
     }
 
     @Override
+    public List<TagDto> findAll() {
+        return findAllTags();
+    }
+
+    @Override
     public List<TagDto> findAllTags() {
         try (Session session = sessionFactory.openSession()) {
             return session.createQuery("from TagEntity", TagEntity.class)

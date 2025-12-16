@@ -20,6 +20,7 @@ public interface TagDatabaseFacade {
     TagDto findByName(String tagName);
 
     // ===== READ: collections =====
+    List<TagDto> findAll();
     List<TagDto> findAllTags();
     List<TagGroupDto> findAllGroups();
 
