@@ -4,6 +4,7 @@ import com.kidekdev.albummanager.common.OperationResult;
 import com.kidekdev.albummanager.database.dto.ResourceDto;
 import com.kidekdev.albummanager.database.dto.TagDto;
 import com.kidekdev.albummanager.database.type.ResourceType;
+import com.kidekdev.albummanager.ui.context.ControllerHolder;
 import com.kidekdev.albummanager.ui.context.DatabaseHolder;
 import com.kidekdev.albummanager.ui.controller.scene.EditResourceDialogController;
 import com.kidekdev.albummanager.ui.dispatcher.EventHandlerComponent;
@@ -20,10 +21,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.nio.file.Path;
 import java.time.OffsetDateTime;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 
 import static com.kidekdev.albummanager.ui.exception.AlertUtils.showErrorAlert;
 import static com.kidekdev.albummanager.ui.exception.AlertUtils.wrapAndAssert;
@@ -83,5 +82,7 @@ public class ResourceEventController {
                 .tags(resourceTags)
                 .build();
         DatabaseHolder.resource.save(resourceDto);
+        ControllerHolder.importTabController.updateImportResourceList();
+        ControllerHolder.mainTabController.updateMainResourceList();
     }
 }

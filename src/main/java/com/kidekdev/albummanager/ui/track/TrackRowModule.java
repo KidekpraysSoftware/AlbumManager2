@@ -63,15 +63,26 @@ public class TrackRowModule extends AnchorPane implements PlayableTrack {
         MenuItem addTrack = new MenuItem("Добавить трек");
         MenuItem ignoreTrack = new MenuItem("Игнорировать трек");
         MenuItem openTrack = new MenuItem("Найти в проводнике");
+        MenuItem editTrack = new MenuItem("Редактировать трек");
         addTrack.setOnAction(action -> EventDispatcher.dispatch(new AddNewResourceEvent(trackPath, true)));
         ignoreTrack.setOnAction(action -> EventDispatcher.dispatch(new IgnoreNewResourceEvent(trackPath)));
         openTrack.setOnAction(action -> FileUtils.revealFileInExplorer(trackPath));
+        ContextMenu contextMenu;
+        if (location.equals(ResourceLocation.IMPORT_LIST)) {
+            contextMenu = new ContextMenu(
+                    addTrack,
+                    ignoreTrack,
+                    openTrack
+            );
+        } else if(location.equals(ResourceLocation.RESOURCE_LIST)) {
+            contextMenu = new ContextMenu(
+                    openTrack,
+                    editTrack
+            );
+        } else {
+            contextMenu = new ContextMenu();
+        }
 
-        ContextMenu contextMenu = new ContextMenu(
-                addTrack,
-                ignoreTrack,
-                openTrack
-        );
 
         setOnContextMenuRequested(event ->
                 contextMenu.show(this, event.getScreenX(), event.getScreenY())

@@ -4,6 +4,7 @@ import com.kidekdev.albummanager.common.OperationResult;
 import com.kidekdev.albummanager.database.dto.ImportRuleDto;
 import com.kidekdev.albummanager.database.dto.ResourceDto;
 import com.kidekdev.albummanager.database.type.ResourceType;
+import com.kidekdev.albummanager.ui.context.ControllerHolder;
 import com.kidekdev.albummanager.ui.context.DatabaseCache;
 import com.kidekdev.albummanager.ui.context.DatabaseHolder;
 import com.kidekdev.albummanager.ui.exception.AlertUtils;
@@ -43,13 +44,14 @@ public class ImportTabController {
 
     @FXML
     protected void initialize() {
+        ControllerHolder.importTabController = this;
         log.info("Инициализация ImportTabController");
         initImportListDnD();
         importButton.setOnAction(event -> handleCreateAutoImportButton());
         updateImportResourceList();
     }
 
-    private void updateImportResourceList() {
+    public void updateImportResourceList() {
         importList.getChildren().clear();
         newResourceVBox.getChildren().clear();
         List<ImportRuleDto> foundedRules = DatabaseHolder.importRule.findAll();
@@ -206,5 +208,9 @@ public class ImportTabController {
             }
         }
         updateImportResourceList();
+    }
+
+    public void deleteResourceFromList(Path path) {
+
     }
 }

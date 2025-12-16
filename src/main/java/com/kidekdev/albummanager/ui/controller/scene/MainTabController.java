@@ -1,8 +1,12 @@
 package com.kidekdev.albummanager.ui.controller.scene;
 
+import com.kidekdev.albummanager.database.dto.ResourceDto;
 import com.kidekdev.albummanager.database.type.ResourceExtension;
+import com.kidekdev.albummanager.ui.context.ControllerHolder;
+import com.kidekdev.albummanager.ui.context.DatabaseHolder;
 import com.kidekdev.albummanager.ui.dispatcher.EventDispatcher;
 import com.kidekdev.albummanager.ui.dispatcher.event.AddNewResourceEvent;
+import com.kidekdev.albummanager.ui.track.ResourceLocation;
 import com.kidekdev.albummanager.ui.track.TrackRowModule;
 import javafx.fxml.FXML;
 import javafx.scene.input.Dragboard;
@@ -13,7 +17,9 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.Arrays;
-import java.util.UUID;
+import java.util.List;
+
+import static com.kidekdev.albummanager.database.type.ResourceType.TRACK;
 
 
 @Slf4j
@@ -27,14 +33,28 @@ public class MainTabController {
 
     @FXML
     protected void initialize() {
+        ControllerHolder.mainTabController = this;
         log.info("Инициализация MainTabController");
         setupResourceListDD();
-//        TrackRowModule track1 = new TrackRowModule(Path.of("D:/Green Zone/Музыкальный проект/Действующие проекты/Сессии/S1/216.mp3"), UUID.randomUUID(), "Трек 216", "Неизвестен");
-//        TrackRowModule track2 = new TrackRowModule(Path.of("D:/Green Zone/Музыкальный проект/Действующие проекты/Сессии/S1/217.mp3"), UUID.randomUUID(), "Трек 217", "Неизвестен");
-//        TrackRowModule track3 = new TrackRowModule(Path.of("D:/Green Zone/Музыкальный проект/Действующие проекты/Сессии/S1/218.mp3"), UUID.randomUUID(), "Трек 218", "Неизвестен");
-//        mainResourceList.getChildren().add(track1);
-//        mainResourceList.getChildren().add(track2);
-//        mainResourceList.getChildren().add(track3);
+        updateMainResourceList();
+    }
+
+    public void updateMainResourceList() {
+        mainResourceList.getChildren().clear();
+        List<ResourceDto> resourceDtoList = DatabaseHolder.resource.findAll();
+        resourceDtoList.stream()
+                .filter(dto -> dto.resourceType().equals(TRACK))
+                .forEach(dto -> {
+                    TrackRowModule track =
+                            new TrackRowModule(
+                                    Path.of(dto.path()),
+                                    ResourceLocation.RESOURCE_LIST,
+                                    dto.id(),
+                                    dto.resourceName(),
+                                    dto.authorName()
+                            );
+                    mainResourceList.getChildren().add(track);
+                });
     }
 
     private void setupResourceListDD() {

@@ -18,7 +18,7 @@ import java.util.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "resource_file")
+@Table(name = "resource")
 public class ResourceEntity {
 
     /**
