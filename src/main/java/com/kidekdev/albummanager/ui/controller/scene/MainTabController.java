@@ -7,9 +7,11 @@ import com.kidekdev.albummanager.ui.context.DatabaseHolder;
 import com.kidekdev.albummanager.ui.dispatcher.EventDispatcher;
 import com.kidekdev.albummanager.ui.dispatcher.event.AddNewDynamicResourceEvent;
 import com.kidekdev.albummanager.ui.dispatcher.event.AddNewResourceEvent;
+import com.kidekdev.albummanager.ui.dispatcher.event.RefreshDynamicResourceEvent;
 import com.kidekdev.albummanager.ui.track.ResourceLocation;
 import com.kidekdev.albummanager.ui.track.TrackRowModule;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
@@ -34,11 +36,18 @@ public class MainTabController {
     private VBox projectTrackListVBox;
 
     @FXML
+    private Button refreshDynamicResourceStateButton;
+
+    @FXML
     protected void initialize() {
         ControllerHolder.mainTabController = this;
         log.info("Инициализация MainTabController");
         setupResourceListDD();
         updateMainResourceList();
+        refreshDynamicResourceStateButton.setOnAction(event -> {
+            EventDispatcher.dispatch(new RefreshDynamicResourceEvent());
+        });
+
     }
 
     public void updateMainResourceList() {
