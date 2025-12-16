@@ -10,6 +10,7 @@ import java.util.UUID;
 @Builder(toBuilder = true)
 public record DynamicResourceDto(
         UUID id,
+        String name,
         String path,
         OffsetDateTime importedAt,
         Boolean isActive,

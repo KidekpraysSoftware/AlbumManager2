@@ -37,15 +37,18 @@ public class DynamicResourceEventController {
     @OnEvent(AddNewDynamicResourceEvent.class)
     public void addNewDynamicResource(AddNewDynamicResourceEvent event) {
         log.info("Старт добавления динамического ресурса");
-        Dialog<ResourceType> dialog = ResourceTypeDialog.create();
-        Optional<ResourceType> result = dialog.showAndWait();
+        Dialog<ResourceTypeDialog.ResourceTypeDialogResult> dialog = ResourceTypeDialog.create();
+        Optional<ResourceTypeDialog.ResourceTypeDialogResult> result = dialog.showAndWait();
         if (result.isEmpty()) {
             return;
         }
-        ResourceType resourceType = result.get();
+        ResourceTypeDialog.ResourceTypeDialogResult dialogResult = result.get();
+        String resourceName = dialogResult.name();
+        ResourceType resourceType = dialogResult.type();
 
         DynamicResourceDto dto = DynamicResourceDto.builder()
                 .path(event.path().toString())
+                .name(resourceName)
                 .resourceType(resourceType)
                 .build();
         DatabaseHolder.dynamicResource.save(dto);
