@@ -10,6 +10,7 @@ import com.kidekdev.albummanager.ui.controller.scene.EditResourceDialogControlle
 import com.kidekdev.albummanager.ui.dispatcher.EventHandlerComponent;
 import com.kidekdev.albummanager.ui.dispatcher.OnEvent;
 import com.kidekdev.albummanager.ui.dispatcher.event.AddNewResourceEvent;
+import com.kidekdev.albummanager.ui.dispatcher.event.EditResourceEvent;
 import com.kidekdev.albummanager.ui.dispatcher.event.IgnoreNewResourceEvent;
 import com.kidekdev.albummanager.ui.dto.PathInfo;
 import com.kidekdev.albummanager.ui.utils.FileUtils;
@@ -65,14 +66,14 @@ public class ResourceEventController {
         if (!success) {
             return;
         }
-        EditResourceDialogController.AddResourceResult addResourceResult = controller.getAddTrackResult(pathInfo.fileName());
+        EditResourceDialogController.EditResourceResult editResourceResult = controller.getAddTrackResult(pathInfo.fileName());
 
         OffsetDateTime creationTime = FileUtils.getEarliestFileTime(path.toFile());
 
-        Set<TagDto> resourceTags = DatabaseHolder.tag.mergeNewTags(addResourceResult.selectedTags());
+        Set<TagDto> resourceTags = DatabaseHolder.tag.mergeNewTags(editResourceResult.selectedTags());
         ResourceDto resourceDto = ResourceDto.builder()
-                .resourceName(addResourceResult.resourceName())
-                .authorName(addResourceResult.authorName())
+                .resourceName(editResourceResult.resourceName())
+                .authorName(editResourceResult.authorName())
                 .isActive(true)
                 .path(path.toString())
                 .isDynamic(event.isDynamic())
@@ -106,6 +107,38 @@ public class ResourceEventController {
                 .fileCreationTime(creationTime)
                 .build();
         DatabaseHolder.resource.save(resourceDto);
+        ControllerHolder.importTabController.updateImportResourceList();
+        ControllerHolder.mainTabController.updateMainResourceList();
+    }
+
+    @SneakyThrows
+    @OnEvent(EditResourceEvent.class)
+    public void ignoreNewResource(EditResourceEvent event) {
+        log.info("Старт редактирования ресурса");
+        ResourceDto dto = DatabaseHolder.resource.getById(event.id());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/EditResourceDialog.fxml"));
+        DialogPane dialogPane = loader.load();
+        EditResourceDialogController controller = loader.getController();
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Редактирование " + dto.authorName() + " - " + dto.resourceName());
+        dialog.setDialogPane(dialogPane);
+
+        controller.getAddTrackNameTextField().setText(dto.resourceName());
+        controller.getAddTrackArtistTextField().setText(dto.authorName());
+        controller.selectCheckBox(dto.tags().stream().map(TagDto::name).toList());
+        Optional<ButtonType> result = dialog.showAndWait();
+        boolean success = result.isPresent() && result.get() == controller.getAddButtonType();
+        if (!success) {
+            return;
+        }
+        EditResourceDialogController.EditResourceResult editResourceResult = controller.getAddTrackResult(dto.resourceName());
+        Set<TagDto> resourceTags = DatabaseHolder.tag.mergeNewTags(editResourceResult.selectedTags());
+        ResourceDto resourceDto = dto.toBuilder()
+                .resourceName(editResourceResult.resourceName())
+                .authorName(editResourceResult.authorName())
+                .tags(resourceTags)
+                .build();
+        var x = DatabaseHolder.resource.update(resourceDto);
         ControllerHolder.importTabController.updateImportResourceList();
         ControllerHolder.mainTabController.updateMainResourceList();
     }

@@ -1,7 +1,5 @@
 package com.kidekdev.albummanager.ui.controller.scene;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.kidekdev.albummanager.database.dto.TagDto;
 import com.kidekdev.albummanager.database.dto.TagGroupDto;
 import com.kidekdev.albummanager.ui.context.ControllerHolder;
 import com.kidekdev.albummanager.ui.context.DatabaseHolder;
@@ -78,10 +76,10 @@ public class EditResourceDialogController {
         return result;
     }
 
-    public AddResourceResult getAddTrackResult(String fileName) {
+    public EditResourceResult getAddTrackResult(String fileName) {
         String trackName = addTrackNameTextField.getText();
         String authorName = addTrackArtistTextField.getText();
-        return AddResourceResult.builder()
+        return EditResourceResult.builder()
                 .resourceName(trackName.isEmpty() ? "Без названия" : trackName)
                 .authorName(authorName.isEmpty() ? "KidekDemo " + fileName : authorName)
                 .selectedTags(getAllSelectedTags())
@@ -93,7 +91,7 @@ public class EditResourceDialogController {
     }
 
     @Builder
-    public record AddResourceResult(
+    public record EditResourceResult(
             String resourceName,
             String authorName,
             Map<UUID, List<String>> selectedTags

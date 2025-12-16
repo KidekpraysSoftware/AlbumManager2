@@ -3,6 +3,7 @@ package com.kidekdev.albummanager.ui.track;
 import com.kidekdev.albummanager.ui.context.ActiveTrackHolder;
 import com.kidekdev.albummanager.ui.dispatcher.EventDispatcher;
 import com.kidekdev.albummanager.ui.dispatcher.event.AddNewResourceEvent;
+import com.kidekdev.albummanager.ui.dispatcher.event.EditResourceEvent;
 import com.kidekdev.albummanager.ui.dispatcher.event.IgnoreNewResourceEvent;
 import com.kidekdev.albummanager.ui.utils.DurationFormatter;
 import com.kidekdev.albummanager.ui.utils.FileUtils;
@@ -66,6 +67,7 @@ public class TrackRowModule extends AnchorPane implements PlayableTrack {
         MenuItem editTrack = new MenuItem("Редактировать трек");
         addTrack.setOnAction(action -> EventDispatcher.dispatch(new AddNewResourceEvent(trackPath, true)));
         ignoreTrack.setOnAction(action -> EventDispatcher.dispatch(new IgnoreNewResourceEvent(trackPath)));
+        editTrack.setOnAction(action -> EventDispatcher.dispatch(new EditResourceEvent(trackId)));
         openTrack.setOnAction(action -> FileUtils.revealFileInExplorer(trackPath));
         ContextMenu contextMenu;
         if (location.equals(ResourceLocation.IMPORT_LIST)) {
