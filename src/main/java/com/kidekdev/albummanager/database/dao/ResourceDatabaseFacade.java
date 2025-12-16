@@ -16,6 +16,10 @@ public interface ResourceDatabaseFacade {
 
     List<ResourceDto> getAllById(Collection<UUID> ids);
 
+    List<ResourceDto> findAll();
+
+    List<ResourceDto> findAllActive();
+
     OperationResult update(ResourceDto dto);
 
     OperationResult deactivate(UUID id);

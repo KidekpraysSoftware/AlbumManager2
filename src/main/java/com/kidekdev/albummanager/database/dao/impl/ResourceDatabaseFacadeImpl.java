@@ -72,6 +72,28 @@ public class ResourceDatabaseFacadeImpl implements ResourceDatabaseFacade {
     }
 
     @Override
+    public List<ResourceDto> findAll() {
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery("from ResourceEntity order by ordering", ResourceEntity.class)
+                    .list()
+                    .stream()
+                    .map(mapper::toDto)
+                    .collect(Collectors.toList());
+        }
+    }
+
+    @Override
+    public List<ResourceDto> findAllActive() {
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery("from ResourceEntity where isActive = true order by ordering", ResourceEntity.class)
+                    .list()
+                    .stream()
+                    .map(mapper::toDto)
+                    .collect(Collectors.toList());
+        }
+    }
+
+    @Override
     public OperationResult update(ResourceDto dto) {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
