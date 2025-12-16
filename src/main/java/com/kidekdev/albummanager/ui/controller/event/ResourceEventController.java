@@ -140,6 +140,5 @@ public class ResourceEventController {
                 .build();
         var x = DatabaseHolder.resource.update(resourceDto);
         ControllerHolder.importTabController.updateImportResourceList();
-        ControllerHolder.mainTabController.updateMainResourceList();
     }
 }

@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.time.OffsetDateTime;
 import java.util.*;
 
 /**
@@ -35,9 +36,9 @@ public class DynamicResourceEntity {
     /**
      * Timestamp of the first import (epoch millis UTC).
      */
+    @Column(name = "imported_at", nullable = false)
     @CreationTimestamp
-    @Column(name = "imported_at")
-    private Long importedAt;
+    private OffsetDateTime importedAt;
 
     /**
      * Flag indicating whether scanning is currently enabled.
@@ -56,13 +57,6 @@ public class DynamicResourceEntity {
      * Optional resource used as preview for the folder.
      */
     private UUID view;
-
-    /**
-     * Resources linked with the project.
-     */
-    @JdbcTypeCode(SqlTypes.JSON)
-    @Column(columnDefinition = "jsonb")
-    LinkedHashSet<UUID> items;
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb")
