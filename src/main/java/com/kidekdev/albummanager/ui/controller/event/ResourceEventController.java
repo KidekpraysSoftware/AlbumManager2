@@ -10,6 +10,7 @@ import com.kidekdev.albummanager.ui.controller.scene.EditResourceDialogControlle
 import com.kidekdev.albummanager.ui.dispatcher.EventHandlerComponent;
 import com.kidekdev.albummanager.ui.dispatcher.OnEvent;
 import com.kidekdev.albummanager.ui.dispatcher.event.AddNewResourceEvent;
+import com.kidekdev.albummanager.ui.dispatcher.event.IgnoreNewResourceEvent;
 import com.kidekdev.albummanager.ui.dto.PathInfo;
 import com.kidekdev.albummanager.ui.utils.FileUtils;
 import javafx.fxml.FXMLLoader;
@@ -80,6 +81,29 @@ public class ResourceEventController {
                 .extension(pathInfo.extension())
                 .fileCreationTime(creationTime)
                 .tags(resourceTags)
+                .build();
+        DatabaseHolder.resource.save(resourceDto);
+        ControllerHolder.importTabController.updateImportResourceList();
+        ControllerHolder.mainTabController.updateMainResourceList();
+    }
+
+    @SneakyThrows
+    @OnEvent(IgnoreNewResourceEvent.class)
+    public void ignoreNewResource(IgnoreNewResourceEvent event) {
+        Path path = event.path();
+        PathInfo pathInfo = getPathInfo(path);
+        String resourceFileHash = sha256(path);
+        OffsetDateTime creationTime = FileUtils.getEarliestFileTime(path.toFile());
+        ResourceDto resourceDto = ResourceDto.builder()
+                .resourceName(pathInfo.fileName())
+                .authorName("Неизвестен")
+                .isActive(false)
+                .path(path.toString())
+                .isDynamic(false)
+                .hash(resourceFileHash)
+                .resourceType(ResourceType.resolveType(pathInfo.extension()))
+                .extension(pathInfo.extension())
+                .fileCreationTime(creationTime)
                 .build();
         DatabaseHolder.resource.save(resourceDto);
         ControllerHolder.importTabController.updateImportResourceList();

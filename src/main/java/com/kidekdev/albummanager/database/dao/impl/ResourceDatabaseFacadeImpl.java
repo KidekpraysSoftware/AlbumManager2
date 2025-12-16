@@ -211,7 +211,7 @@ public class ResourceDatabaseFacadeImpl implements ResourceDatabaseFacade {
                     .map(entity -> {
                         String author = Optional.ofNullable(entity.getAuthorName()).orElse("");
                         String name = Optional.ofNullable(entity.getResourceName()).orElse("");
-                        String message = "Такой ресурс уже есть: %s - %s".formatted(author, name).trim();
+                        String message = "Такой ресурс уже есть (isActive = %s): %s - %s".formatted(entity.getIsActive(), author, name).trim();
                         return new OperationResult(false, message);
                     })
                     .orElseGet(() -> new OperationResult(true, ""));

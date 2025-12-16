@@ -41,7 +41,7 @@ public class MainTabController {
 
     public void updateMainResourceList() {
         mainResourceList.getChildren().clear();
-        List<ResourceDto> resourceDtoList = DatabaseHolder.resource.findAll();
+        List<ResourceDto> resourceDtoList = DatabaseHolder.resource.findAllActive();
         resourceDtoList.stream()
                 .filter(dto -> dto.resourceType().equals(TRACK))
                 .forEach(dto -> {
