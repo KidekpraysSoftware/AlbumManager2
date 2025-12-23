@@ -21,6 +21,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import static com.kidekdev.albummanager.database.type.ResourceType.TRACK;
@@ -52,7 +53,10 @@ public class MainTabController {
 
     public void updateMainResourceList() {
         mainResourceList.getChildren().clear();
-        List<ResourceDto> resourceDtoList = DatabaseHolder.resource.findAllActive();
+        List<ResourceDto> resourceDtoList = DatabaseHolder.resource.findAllByActive(true)
+                .stream()
+                .sorted(Comparator.comparingInt(ResourceDto::ordering))
+                .toList();
         resourceDtoList.stream()
                 .filter(dto -> dto.resourceType().equals(TRACK))
                 .forEach(dto -> {

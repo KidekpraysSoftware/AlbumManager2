@@ -18,7 +18,11 @@ public interface ResourceDatabaseFacade {
 
     List<ResourceDto> findAll();
 
-    List<ResourceDto> findAllActive();
+    List<ResourceDto> findAll(boolean isActive, boolean isDynamic);
+
+    List<ResourceDto> findAllByDynamic(boolean isDynamic);
+
+    List<ResourceDto> findAllByActive(boolean isActive);
 
     OperationResult update(ResourceDto dto);
 

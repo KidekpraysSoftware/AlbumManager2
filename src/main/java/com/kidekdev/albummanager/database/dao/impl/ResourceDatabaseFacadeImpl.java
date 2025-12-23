@@ -83,9 +83,35 @@ public class ResourceDatabaseFacadeImpl implements ResourceDatabaseFacade {
     }
 
     @Override
-    public List<ResourceDto> findAllActive() {
+    public List<ResourceDto> findAll(boolean isActive, boolean isDynamic) {
         try (Session session = sessionFactory.openSession()) {
-            return session.createQuery("from ResourceEntity where isActive = true order by ordering", ResourceEntity.class)
+            return session.createQuery("from ResourceEntity where isActive = :isActive and isDynamic = :isDynamic order by ordering", ResourceEntity.class)
+                    .setParameter("isActive", isActive)
+                    .setParameter("isDynamic", isDynamic)
+                    .list()
+                    .stream()
+                    .map(mapper::toDto)
+                    .collect(Collectors.toList());
+        }
+    }
+
+    @Override
+    public List<ResourceDto> findAllByDynamic(boolean isDynamic) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery("from ResourceEntity where isDynamic = :isDynamic order by ordering", ResourceEntity.class)
+                    .setParameter("isDynamic", isDynamic)
+                    .list()
+                    .stream()
+                    .map(mapper::toDto)
+                    .collect(Collectors.toList());
+        }
+    }
+
+    @Override
+    public List<ResourceDto> findAllByActive(boolean isActive) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery("from ResourceEntity where isActive = :isActive order by ordering", ResourceEntity.class)
+                    .setParameter("isActive", isActive)
                     .list()
                     .stream()
                     .map(mapper::toDto)
